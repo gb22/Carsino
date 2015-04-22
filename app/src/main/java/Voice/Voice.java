@@ -13,23 +13,23 @@ import group10.carsino.R;
 
 //kommentar
 public class Voice extends ActionBarActivity implements RecognitionListener {
-    static int badjs = 1203;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        startActivityForResult(i, badjs);
+        startActivityForResult(i, 103);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == badjs && resultCode == RESULT_OK){
+        if(requestCode == 103 && resultCode == RESULT_OK){
             sayHi();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
+    //badjs
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
