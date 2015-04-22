@@ -11,7 +11,7 @@ import android.view.MenuItem;
 
 import group10.carsino.R;
 
-
+//kommentar
 public class Voice extends ActionBarActivity implements RecognitionListener {
     static int badjs = 1203;
     @Override
