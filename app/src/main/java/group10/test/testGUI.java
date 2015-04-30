@@ -15,7 +15,7 @@ import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import group10.carsino.R;
+import group10.R;
 import kankan.wheel.widget.adapters.AbstractWheelAdapter;
 import kankan.wheel.widget.annoyance.OnWheelChangedListener;
 import kankan.wheel.widget.annoyance.OnWheelScrollListener;
