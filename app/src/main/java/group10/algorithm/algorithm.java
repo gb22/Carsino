@@ -16,30 +16,30 @@ public class algorithm {
     int prevSpin;
     int result;
 
-    algorithm () {
+    public algorithm () {
         img1=0;
         img2=0;
         img3=0;
         prevSpin=0;
     }
 
-    int get1() {
+    public int get1() {
         return img1;
     }
 
-    int get2() {
+    public int get2() {
         return img2;
     }
 
-    int get3() {
+    public int get3() {
         return img3;
     }
 
-    int getResult() {
+    public int getResult() {
         return result;
     }
 
-    void spin () {
+    public void spin () {
        /*
        Decide outcome.
         */
