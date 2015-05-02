@@ -1,12 +1,10 @@
 package group10.carsino;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import Voice.VoiceControl;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -15,8 +13,8 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent serviceIntent = new Intent();
-        startService(serviceIntent);
+        Intent VoiceControl = new Intent();
+        startService(VoiceControl);
     }
 
 

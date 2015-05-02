@@ -1,4 +1,4 @@
-package Voice;
+package group10.Voice;
 
 import android.content.Intent;
 import android.speech.RecognitionListener;
@@ -17,7 +17,7 @@ public class Voice extends ActionBarActivity implements RecognitionListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_pending);
         Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         startActivityForResult(i, reCode);
     }
