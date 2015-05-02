@@ -13,18 +13,18 @@ import group10.carsino.R;
 
 //kommentar
 public class Voice extends ActionBarActivity implements RecognitionListener {
-    static int badjs = 1203;
+    static int reCode = 1203;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        startActivityForResult(i, badjs);
+        startActivityForResult(i, reCode);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == badjs && resultCode == RESULT_OK){
+        if(requestCode == reCode && resultCode == RESULT_OK){
             sayHi();
         }
         super.onActivityResult(requestCode, resultCode, data);
