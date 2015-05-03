@@ -1,15 +1,16 @@
 package group10.Voice;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
-//import android.speech.SpeechRecognizer;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import group10.carsino.R;
+
+//import android.speech.SpeechRecognizer;
 
 //kommentar
 public class Voice extends ActionBarActivity implements RecognitionListener {
@@ -17,6 +18,7 @@ public class Voice extends ActionBarActivity implements RecognitionListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("fag4");
         setContentView(R.layout.activity_pending);
         Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         startActivityForResult(i, reCode);
