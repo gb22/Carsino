@@ -1,4 +1,4 @@
-package group10.test;
+package group10.gui;
 
 import android.content.Context;
 import android.graphics.Bitmap;
