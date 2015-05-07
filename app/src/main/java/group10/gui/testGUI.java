@@ -3,6 +3,7 @@ package group10.gui;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +23,18 @@ import kankan.wheel.widget.annoyance.OnWheelScrollListener;
 import kankan.wheel.widget.annoyance.WheelView;
 import group10.algorithm.algorithm;
 
+import com.swedspot.automotiveapi.*;
+import android.swedspot.automotiveapi.unit.*;
+import android.swedspot.automotiveapi.*;
+import android.swedspot.scs.data.*;
+import android.widget.ViewSwitcher;
+import com.swedspot.vil.policy.*;
+import com.swedspot.vil.distraction.*;
+
 public class testGUI extends ActionBarActivity {
+
+    private ViewSwitcher switcher;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +61,60 @@ public class testGUI extends ActionBarActivity {
             }
         });
 
+        switcher = (ViewSwitcher) findViewById(R.id.ViewSwitcher);
+
+        new AsyncTask() {
+            Integer prevSpeed=new Integer(0);
+            int temp;
+            @Override
+            protected Object doInBackground(Object... objects) {
+                // Access to Automotive API
+                AutomotiveFactory.createAutomotiveManagerInstance(
+                        new AutomotiveCertificate(new byte[0]),
+                        new AutomotiveListener() { // Listener that observes the Signals
+                            @Override
+                            public void receive(final AutomotiveSignal automotiveSignal) {
+                                new Runnable() { // Post the result back to the View/UI thread
+                                    public void run() {
+
+                                        if(((SCSFloat) automotiveSignal.getData()).getFloatValue()>0 && prevSpeed.equals(0)) {
+                                            switcher.showNext();
+                                            prevSpeed=new Integer(1);
+                                        }
+                                        else if (((SCSFloat) automotiveSignal.getData()).getFloatValue()==0 && prevSpeed.equals(1)) {
+                                            switcher.showPrevious();
+                                            prevSpeed=new Integer(0);
+                                        }
+                                        else
+                                            System.out.println();
+                                    }
+                                };
+                            }
+                            @Override
+                            public void timeout(int i) {}
+
+                            @Override
+                            public void notAllowed(int i) {}
+                        },
+                        new DriverDistractionListener() {       // Observe driver distraction level
+                            @Override
+                            public void levelChanged(final DriverDistractionLevel driverDistractionLevel) {
+                                new Runnable() { // Post the result back to the View/UI thread
+                                    public void run() {
+                                        //TODO
+                                        //What happens when to distracted.
+                                    }
+                                };
+                            }
+                            @Override
+                            public void stealthModeChanged(StealthMode stealthMode) {}
+                            @Override
+                            public void lightModeChanged(LightMode lightMode) {}
+                        }
+                ).register(AutomotiveSignalId.FMS_WHEEL_BASED_SPEED); // Register for the speed signal
+                return null;
+            }
+        }.execute(); // And go!
 
         updateStatus();
     }
@@ -161,6 +227,7 @@ public class testGUI extends ActionBarActivity {
       17 xyz-> kxy-> lkx
       18 yyx
      */
+
     private void mixWheel(int id, int slots, int time) {
 
         WheelView wheel = getWheel(id);
