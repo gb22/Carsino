@@ -22,7 +22,7 @@ public class JavaDBCon {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("Connected");
+            System.out.println("Connected1");
             Log.d("Worked", "sdsdsd666uu tony???????????????");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
