@@ -60,12 +60,12 @@ public class testGUI extends ActionBarActivity {
                 mixWheel(R.id.slot_3,slots.get3(),3);
             }
         });
+        updateStatus();
 
         switcher = (ViewSwitcher) findViewById(R.id.ViewSwitcher);
 
         new AsyncTask() {
             Integer prevSpeed=new Integer(0);
-            int temp;
             @Override
             protected Object doInBackground(Object... objects) {
                 // Access to Automotive API
@@ -85,8 +85,6 @@ public class testGUI extends ActionBarActivity {
                                             switcher.showPrevious();
                                             prevSpeed=new Integer(0);
                                         }
-                                        else
-                                            System.out.println();
                                     }
                                 };
                             }
@@ -97,6 +95,7 @@ public class testGUI extends ActionBarActivity {
                             public void notAllowed(int i) {}
                         },
                         new DriverDistractionListener() {       // Observe driver distraction level
+
                             @Override
                             public void levelChanged(final DriverDistractionLevel driverDistractionLevel) {
                                 new Runnable() { // Post the result back to the View/UI thread
@@ -111,12 +110,13 @@ public class testGUI extends ActionBarActivity {
                             @Override
                             public void lightModeChanged(LightMode lightMode) {}
                         }
+
                 ).register(AutomotiveSignalId.FMS_WHEEL_BASED_SPEED); // Register for the speed signal
                 return null;
             }
         }.execute(); // And go!
 
-        updateStatus();
+
     }
 
     // Wheel scrolled flag
