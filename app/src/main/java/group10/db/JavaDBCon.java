@@ -85,7 +85,7 @@ public class JavaDBCon {
             statement.close();
             Log.d("BDJDS555555555555555555555555", "5t5gtggb");
             conn.close();
-            Log.d("BDJDS", "ghghgth66677");
+            Log.d("BDJDS", "ghghgth6667");
         } catch (SQLException e) {
             e.printStackTrace();
         }
