@@ -74,13 +74,8 @@ public class JavaDBCon {
             }
             Statement statement = conn.createStatement();
             Log.d("BDJDS33333333333333333333333333", "sdsdsdsdsds");
-            ResultSet rs = statement.executeQuery(query);
 
             statement.execute(query);
-         while(rs.next()){
-             System.out.println(rs.getString("Name"));
-         }
-            rs.close();
             Log.d("BDJDS4444444444444444444444444444444444", "dssd3333");
             statement.close();
             Log.d("BDJDS555555555555555555555555", "5t5gtggb");
@@ -91,3 +86,4 @@ public class JavaDBCon {
         }
     }
 }
+
