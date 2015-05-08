@@ -12,7 +12,7 @@ import group10.carsino.R;
 
 //import android.speech.SpeechRecognizer;
 
-//kommentar
+//kommentar2
 public class Voice extends ActionBarActivity implements RecognitionListener {
     static int reCode = 1203;
     @Override
