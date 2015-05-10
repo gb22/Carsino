@@ -17,7 +17,6 @@ import android.os.RemoteException;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.util.Log;
 
 import java.lang.ref.WeakReference;
 
@@ -146,8 +145,6 @@ public class VoiceControlTest extends Service {
     protected class SpeechRecognitionListener implements RecognitionListener
     {
 
-        private static final String TAG = "SpeechRecognitionListenerTest";
-
         @Override
         public void onBeginningOfSpeech()
         {
@@ -157,19 +154,19 @@ public class VoiceControlTest extends Service {
                 mIsCountDownOn = false;
                 mNoSpeechCountDown.cancel();
             }
-            //Log.d(TAG, "onBeginingOfSpeech"); //$NON-NLS-1$
+            System.out.println("oBOS");
         }
 
         @Override
         public void onBufferReceived(byte[] buffer)
         {
-
+            System.out.println("oBR");
         }
 
         @Override
         public void onEndOfSpeech()
         {
-            //Log.d(TAG, "onEndOfSpeech"); //$NON-NLS-1$
+            System.out.println("oEOS");
             MainActivity.sayHi();
         }
 
@@ -191,19 +188,19 @@ public class VoiceControlTest extends Service {
             {
 
             }
-            //Log.d(TAG, "error = " + error); //$NON-NLS-1$
+            System.out.println(error);
         }
 
         @Override
         public void onEvent(int eventType, Bundle params)
         {
-
+            System.out.println("oEvt");
         }
 
         @Override
         public void onPartialResults(Bundle partialResults)
         {
-
+            System.out.println("oPR");
         }
 
         @Override
@@ -215,20 +212,20 @@ public class VoiceControlTest extends Service {
                 mNoSpeechCountDown.start();
                 mAudioManager.setStreamMute(AudioManager.STREAM_SYSTEM, false);
             }
-            Log.d(TAG, "onReadyForSpeech"); //$NON-NLS-1$
+            System.out.println("oRFSpeech");
         }
 
         @Override
         public void onResults(Bundle results)
         {
-            //Log.d(TAG, "onResults"); //$NON-NLS-1$
+            System.out.println("oRes");
 
         }
 
         @Override
         public void onRmsChanged(float rmsdB)
         {
-
+            System.out.println("oRmsC");
         }
 
     }
@@ -239,7 +236,7 @@ public class VoiceControlTest extends Service {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service)
         {
-            //if (DEBUG) {Log.d(TAG, "onServiceConnected");} //$NON-NLS-1$
+
 
             mServiceMessenger = new Messenger(service);
             Message msg = new Message();
@@ -253,12 +250,13 @@ public class VoiceControlTest extends Service {
             {
                 e.printStackTrace();
             }
+            System.out.println("oServiceConn");
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name)
         {
-            //if (DEBUG) {Log.d(TAG, "onServiceDisconnected");} //$NON-NLS-1$
+            System.out.println("oServiceDisconn");
             mServiceMessenger = null;
         }
 
@@ -267,8 +265,7 @@ public class VoiceControlTest extends Service {
     @Override
     public IBinder onBind(Intent intent)
     {
-        //Log.d(TAG, "onBind");  //$NON-NLS-1$
-
+        System.out.println("Badjs on bind");
         return mServerMessenger.getBinder();
     }
 }
