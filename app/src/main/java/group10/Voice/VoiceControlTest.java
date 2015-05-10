@@ -17,10 +17,10 @@ import android.os.RemoteException;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
-
-import group10.carsino.MainActivity;
+import java.util.ArrayList;
 
 /**
  * Created by John on 5/3/2015.
@@ -30,9 +30,11 @@ public class VoiceControlTest extends Service {
     public SpeechRecognizer mSpeechRecognizer;
     public Intent mSpeechRecognizerIntent;
     public final Messenger mServerMessenger = new Messenger(new IncomingHandler(this));
+    private TextView txtSpeechInput;
 
     protected boolean mIsListening;
     protected volatile boolean mIsCountDownOn;
+
 
     public static final int MSG_RECOGNIZER_START_LISTENING = 1;
     public static final int MSG_RECOGNIZER_CANCEL = 2;
@@ -46,15 +48,19 @@ public class VoiceControlTest extends Service {
     {
         super.onCreate();
         System.out.println("yay?");
+        //bajs
+        //txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);
+
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
         mSpeechRecognizer.setRecognitionListener(new SpeechRecognitionListener());
         mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
-                this.getPackageName());
+        /*mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
+                this.getPackageName());*/
         bindService(new Intent(this, VoiceControlTest.class), mServiceConnection, mBindFlag);
+
     }
 
     protected static class IncomingHandler extends Handler
@@ -167,7 +173,7 @@ public class VoiceControlTest extends Service {
         public void onEndOfSpeech()
         {
             System.out.println("oEOS");
-            MainActivity.sayHi();
+            //MainActivity.sayHi();
         }
 
         @Override
@@ -218,14 +224,18 @@ public class VoiceControlTest extends Service {
         @Override
         public void onResults(Bundle results)
         {
-            System.out.println("oRes");
+            System.out.println("onResults1");
+            ArrayList<String> gibberish = mSpeechRecognizerIntent.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            System.out.println("onResults2");
+            System.out.println(gibberish);
+            System.out.println("onResults3");
 
         }
 
         @Override
         public void onRmsChanged(float rmsdB)
         {
-            System.out.println("oRmsC");
+            /*System.out.println("oRmsC " + rmsdB )*/;
         }
 
     }
