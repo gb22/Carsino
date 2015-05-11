@@ -10,36 +10,41 @@ public class algorithm {
     //Chance of getting wild (1/value)
     static int wildChance=10;
 
+    //Ints for handling the different slot images (1-12)
     int img1;
     int img2;
     int img3;
+    //Int to make sure that losses and highest wins are less likely to repeat.
     int prevSpin;
+    //Int to handle the result (1-12)
     int result;
 
-    algorithm () {
+    //Constructor
+    public algorithm () {
         img1=0;
         img2=0;
         img3=0;
         prevSpin=0;
     }
 
-    int get1() {
+    public int get1() {
         return img1;
     }
 
-    int get2() {
+    public int get2() {
         return img2;
     }
 
-    int get3() {
+    public int get3() {
         return img3;
     }
 
-    int getResult() {
+    public int getResult() {
         return result;
     }
 
-    void spin () {
+    //Determines the result of next spin.
+    public void spin () {
        /*
        Decide outcome.
         */
