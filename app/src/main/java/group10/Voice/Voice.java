@@ -98,7 +98,7 @@ public class Voice extends ActionBarActivity implements RecognitionListener {
 
     @Override
     public void onEndOfSpeech() {
-        sayHi();
+      //  sayHi();
     }
 
     @Override

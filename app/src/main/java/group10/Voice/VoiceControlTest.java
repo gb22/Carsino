@@ -45,7 +45,7 @@ public class VoiceControlTest extends Service {
 
     @Override
     public void onCreate()
-    {
+        {
         super.onCreate();
         System.out.println("yay?");
         //bajs
@@ -225,7 +225,7 @@ public class VoiceControlTest extends Service {
         public void onResults(Bundle results)
         {
             System.out.println("onResults1");
-            ArrayList<String> gibberish = mSpeechRecognizerIntent.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            ArrayList<String> gibberish = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
             System.out.println("onResults2");
             System.out.println(gibberish);
             System.out.println("onResults3");
