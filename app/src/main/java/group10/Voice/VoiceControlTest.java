@@ -118,6 +118,7 @@ public class VoiceControlTest extends Service {
         @Override
         public void onFinish()
         {
+            System.out.println("onFinish");
             mIsCountDownOn = false;
             Message message = Message.obtain(null, MSG_RECOGNIZER_CANCEL);
             try
@@ -226,11 +227,16 @@ public class VoiceControlTest extends Service {
         {
             System.out.println("onResults1");
             ArrayList<String> gibberish = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+            boolean spinCheck = false;
             for (int i=0; gibberish.size()>i; i++) {
-            if (gibberish.get(i).toLowerCase().equals("size") == true) {
-                //Här ska spin vara
-            } //Här kan något annat vara
-        }
+                if (gibberish.get(i).toLowerCase().equals("spin") || gibberish.get(i).toLowerCase().equals("teen") == true) {
+                    System.out.println("Spinågotannanstanstning...");
+                    spinCheck = true;
+                }
+            }
+            if (spinCheck == false){
+                mNoSpeechCountDown.start();
+            }
 
             System.out.println("onResults2");
             System.out.println(gibberish);
