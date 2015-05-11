@@ -74,7 +74,7 @@ public class testGUI extends ActionBarActivity {
                         new AutomotiveListener() { // Listener that observes the Signals
                             @Override
                             public void receive(final AutomotiveSignal automotiveSignal) {
-                                new Runnable() { // Post the result back to the View/UI thread
+                                switcher.post(new Runnable() { // Post the result back to the View/UI thread
                                     public void run() {
 
                                         if(((SCSFloat) automotiveSignal.getData()).getFloatValue()>0 && prevSpeed.equals(0)) {
@@ -86,7 +86,7 @@ public class testGUI extends ActionBarActivity {
                                             prevSpeed=new Integer(0);
                                         }
                                     }
-                                };
+                                });
                             }
                             @Override
                             public void timeout(int i) {}
