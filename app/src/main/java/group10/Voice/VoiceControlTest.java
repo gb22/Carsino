@@ -227,10 +227,10 @@ public class VoiceControlTest extends Service {
             System.out.println("onResults1");
             ArrayList<String> gibberish = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
             for (int i=0; gibberish.size()>i; i++) {
-                if (gibberish.get(i).toLowerCase().equals("size") == true) {
-                    //Här ska spin vara
-                } //Här kan något annat vara
-            }
+            if (gibberish.get(i).toLowerCase().equals("size") == true) {
+                //Här ska spin vara
+            } //Här kan något annat vara
+        }
 
             System.out.println("onResults2");
             System.out.println(gibberish);
