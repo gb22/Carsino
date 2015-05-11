@@ -57,7 +57,7 @@ public class MainActivity extends ActionBarActivity {
 
 
 
-                JavaDBCon.InsertName("shabi");
+                JavaDBCon.InsertName("group 10");
 
             }
 
