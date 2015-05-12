@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import group10.db.JavaDBCon;
 
 
-public class dbMain extends ActionBarActivity {
+public class dbMainNew extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
