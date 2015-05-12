@@ -1,4 +1,4 @@
-package group10.carsino;
+package group10.db;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import group10.db.JavaDBCon;
 
 
-public class MainActivity extends ActionBarActivity {
+public class dbMain extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
