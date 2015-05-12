@@ -8,7 +8,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import group10.carsino.R;
+import group10.R;
 
 //import android.speech.SpeechRecognizer;
 
