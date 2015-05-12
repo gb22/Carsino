@@ -1,20 +1,18 @@
-package group10.carsino;
+package group10.Voice;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Message;
 import android.os.Messenger;
-import android.os.RemoteException;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import group10.Voice.VoiceControlTest;
+import group10.carsino.R;
 
 
-public class MainActivity extends ActionBarActivity {
+public class VoiceActivity extends ActionBarActivity {
 
     private static Context activityContext;
     private static VoiceControlTest voiceCommandService;
@@ -28,7 +26,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         System.out.println("fag1");
-        //startService(new Intent(this, group10.Voice.VoiceControl.class));
         //hoan
         activityContext= this;
         Intent service = new Intent(activityContext, VoiceControlTest.class);
@@ -58,43 +55,5 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-    public static void sayHi(){
-        System.out.println("Badjs");
-        /*if (iView==0) {
-            setContentView(R.layout.activity_hello);
-            iView = 1;
-        }
-        if(iView==1){
-            setContentView(R.layout.activity_pending);
-            iView= 0;
-        }*/
-        //spinCount();
-    }
-    
-    //Cheat code from SO
-    public static void init(Context context)
-    {
-        voiceCommandService = new VoiceControlTest();
-        activityContext = context;
-    }
-
-    public static void startContinuousListening()
-    {
-        Intent service = new Intent(activityContext, VoiceControlTest.class);
-        activityContext.startService(service);
-
-        Message msg = new Message();
-        msg.what = VoiceControlTest.MSG_RECOGNIZER_START_LISTENING;
-
-        try
-        {
-            voiceCommandService.mServerMessenger.send(msg);
-        }
-        catch (RemoteException e)
-        {
-            e.printStackTrace();
-        }
-
     }
 }

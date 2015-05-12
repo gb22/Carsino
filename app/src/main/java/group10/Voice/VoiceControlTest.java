@@ -174,7 +174,7 @@ public class VoiceControlTest extends Service {
         public void onEndOfSpeech()
         {
             System.out.println("oEOS");
-            //MainActivity.sayHi();
+            //VoiceActivity.sayHi();
         }
 
         @Override
