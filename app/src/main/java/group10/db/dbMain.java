@@ -19,7 +19,7 @@ public class dbMain extends ActionBarActivity {
         if (android.os.Build.VERSION.SDK_INT > 9) {
             android.os.StrictMode.ThreadPolicy policy =
                     new android.os.StrictMode.ThreadPolicy.Builder().permitAll().build();
-           android.os. StrictMode.setThreadPolicy(policy);
+            android.os. StrictMode.setThreadPolicy(policy);
         }
 
         super.onCreate(savedInstanceState);
@@ -57,11 +57,11 @@ public class dbMain extends ActionBarActivity {
 
 
 
-                JavaDBCon.InsertName("group 10");
+        JavaDBCon.InsertName("group 10");
 
-            }
+    }
 
 
-        }
+}
 
 
