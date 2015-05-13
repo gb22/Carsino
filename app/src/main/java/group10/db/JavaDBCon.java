@@ -52,24 +52,18 @@ public class JavaDBCon {
     }
 
 
-
-
-
-
-
-    public static void InsertName(String name) {
+    public static void InsertUser(String name, int score) {
         Connection conn = ConnectingSQL();
         try {
 
             //PreparedStatement instatement = (PreparedStatement) conn.prepareStatement(TranslatorV1.translateInsertTeam(t.getName(),t.getPnp(),t.isCl()));
-            String query = "INSERT INTO HighScore (Name) VALUES ('" + name + "')";
+            String query = "INSERT INTO HighScore (Name,Score) VALUES ('" + name + "'," + score + ")";
 
             Log.d("BDJDS222222222222", query);
 
-            if(conn.isClosed()) {
+            if (conn.isClosed()) {
                 Log.d("1111", "2222");
-            }
-            else {
+            } else {
                 Log.d("2222", "2222");
             }
             Statement statement = conn.createStatement();
@@ -86,4 +80,5 @@ public class JavaDBCon {
         }
     }
 }
+
 

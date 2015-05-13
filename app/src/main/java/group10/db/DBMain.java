@@ -53,7 +53,9 @@ public class DBMain extends ActionBarActivity {
 
 
 
-        JavaDBCon.InsertName("group 10");
+        JavaDBCon.InsertUser("group 7",10);
+
+
 
     }
 
