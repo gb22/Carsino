@@ -1,30 +1,37 @@
-package group10.db;
+package group10.Voice;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Messenger;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import group10.R;
 
-import java.sql.SQLException;
-
-import group10.db.JavaDBCon;
+import group10.R;
 
 
-public class dbMainNew extends ActionBarActivity {
+public class VoiceActivity extends ActionBarActivity {
 
+    private static Context activityContext;
+    private static VoiceControlTest voiceCommandService;
+    //Shit
+    int iView=0;
+    //hoan
+    private int mBindFlag;
+    private Messenger mServiceMessenger;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (android.os.Build.VERSION.SDK_INT > 9) {
-            android.os.StrictMode.ThreadPolicy policy =
-                    new android.os.StrictMode.ThreadPolicy.Builder().permitAll().build();
-            android.os. StrictMode.setThreadPolicy(policy);
-        }
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        setContentView(R.layout.activity_hello);
+        System.out.println("fag1");
+        //hoan
+        activityContext= this;
+        Intent service = new Intent(activityContext, VoiceControlTest.class);
+        activityContext.startService(service);
+        mBindFlag = Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH ? 0 : Context.BIND_ABOVE_CLIENT;
 
     }
 
@@ -50,18 +57,4 @@ public class dbMainNew extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
-    public void buttononclick(View v ){
-
-
-
-        JavaDBCon.InsertName("group 10");
-
-    }
-
-
 }
-
-

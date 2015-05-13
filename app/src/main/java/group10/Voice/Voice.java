@@ -71,7 +71,7 @@ public class Voice extends ActionBarActivity implements RecognitionListener {
     }*/
 
     /*private void reset() {
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_db);
         Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         startActivityForResult(i, badjs);
     }*/
