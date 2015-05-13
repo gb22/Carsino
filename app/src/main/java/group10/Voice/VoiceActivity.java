@@ -17,7 +17,7 @@ public class VoiceActivity extends ActionBarActivity {
 
     private static Context activityContext;
     private static VoiceControlTest voiceCommandService;
-    //Shit
+    //Shitj
     int iView=0;
     //hoan
     private int mBindFlag;
