@@ -6,23 +6,39 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import group10.R;
+import  android.widget.Button;
+import android.content.Intent;
+
 
 
 public class DBMain extends ActionBarActivity {
-
+    private static Button button_sbm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (android.os.Build.VERSION.SDK_INT > 9) {
             android.os.StrictMode.ThreadPolicy policy =
                     new android.os.StrictMode.ThreadPolicy.Builder().permitAll().build();
-            android.os. StrictMode.setThreadPolicy(policy);
+            android.os.StrictMode.setThreadPolicy(policy);
         }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db);
-
-
+        onClickbuttonListener();
     }
+       public void onClickbuttonListener() {
+           Button button_sbm = (Button) findViewById(R.id.button);
+           button_sbm.setOnClickListener(
+                   new View.OnClickListener() {
+                       @Override
+                       public void onClick(View v) {
+                          Intent intent =new Intent("group10.carsino.highscore");
+                           startActivity(intent);
+                       }
+
+                   }
+           );
+       }
+
 
 
     @Override
