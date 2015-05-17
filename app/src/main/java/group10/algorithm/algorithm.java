@@ -19,12 +19,16 @@ public class algorithm {
     //Int to handle the result (1-12)
     int result;
 
+    //Int to handle number of spins the user has left
+    int spinsLeft;
+
     //Constructor
     public algorithm () {
         img1=0;
         img2=0;
         img3=0;
         prevSpin=0;
+        spinsLeft=30;
     }
 
     public int get1() {
@@ -41,6 +45,10 @@ public class algorithm {
 
     public int getResult() {
         return result;
+    }
+
+    public int getSpins() {
+        return spinsLeft;
     }
 
     //Determines the result of next spin.
@@ -224,6 +232,7 @@ public class algorithm {
         //Coin (9)
         else if (89<=result && result<=93) {
             prevSpin=0;
+            spinsLeft+=1;
             if (rand.nextInt(wildChance)+1==1)
                 img1=12;
             else
@@ -241,6 +250,7 @@ public class algorithm {
         //"7" (10)
         else if (94<=result && result<=98) {
             prevSpin=0;
+            spinsLeft+=3;
             if (rand.nextInt(wildChance)+1==1)
                 img1=12;
             else
@@ -259,6 +269,7 @@ public class algorithm {
         else if (99<=result) {
             //Prevention of "high win" streak
             prevSpin-=1;
+            spinsLeft+=10;
             if (rand.nextInt(wildChance)+1==1)
                 img1=12;
             else

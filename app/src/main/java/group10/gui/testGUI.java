@@ -58,11 +58,17 @@ public class testGUI extends ActionBarActivity {
         //Listener for whole screen clicking
         mix.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                slots.spin();
-                System.out.println("Result: "+slots.getResult());
-                mixWheel(R.id.slot_1,slots.get1(),1);
-                mixWheel(R.id.slot_2,slots.get2(),2);
-                mixWheel(R.id.slot_3,slots.get3(),3);
+                if (slots.getSpins()>0) {
+                    slots.spin();
+                    System.out.println("Result: " + slots.getResult());
+                    mixWheel(R.id.slot_1, slots.get1(), 1);
+                    mixWheel(R.id.slot_2, slots.get2(), 2);
+                    mixWheel(R.id.slot_3, slots.get3(), 3);
+                }
+                else {
+                    //TODO
+                    //Submit score
+                }
             }
         });
         updateStatus();
