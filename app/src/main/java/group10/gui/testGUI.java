@@ -4,32 +4,36 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.swedspot.automotiveapi.AutomotiveSignal;
+import android.swedspot.automotiveapi.AutomotiveSignalId;
+import android.swedspot.scs.data.SCSFloat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
+
+import com.swedspot.automotiveapi.AutomotiveFactory;
+import com.swedspot.automotiveapi.AutomotiveListener;
+import com.swedspot.vil.distraction.DriverDistractionLevel;
+import com.swedspot.vil.distraction.DriverDistractionListener;
+import com.swedspot.vil.distraction.LightMode;
+import com.swedspot.vil.distraction.StealthMode;
+import com.swedspot.vil.policy.AutomotiveCertificate;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.List;
 
 import group10.R;
+import group10.algorithm.algorithm;
 import kankan.wheel.widget.adapters.AbstractWheelAdapter;
 import kankan.wheel.widget.annoyance.OnWheelChangedListener;
 import kankan.wheel.widget.annoyance.OnWheelScrollListener;
 import kankan.wheel.widget.annoyance.WheelView;
-import group10.algorithm.algorithm;
-
-import com.swedspot.automotiveapi.*;
-import android.swedspot.automotiveapi.unit.*;
-import android.swedspot.automotiveapi.*;
-import android.swedspot.scs.data.*;
-import android.widget.ViewSwitcher;
-import com.swedspot.vil.policy.*;
-import com.swedspot.vil.distraction.*;
 
 public class testGUI extends ActionBarActivity {
 
@@ -197,6 +201,10 @@ public class testGUI extends ActionBarActivity {
         return getWheel(id).getCurrentItem() == value;
     }
 
+    public static void voiceClick(){
+
+    }
+
     /**
      * Mixes wheel
      * @param id the wheel id
@@ -290,7 +298,7 @@ public class testGUI extends ActionBarActivity {
         private Bitmap loadImage(int id) {
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), id);
             Bitmap scaled = Bitmap.createScaledBitmap(bitmap, IMAGE_WIDTH, IMAGE_HEIGHT, true);
-            bitmap.recycle();
+            //bitmap.recycle();
             return scaled;
         }
 

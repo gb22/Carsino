@@ -22,6 +22,8 @@ import android.widget.TextView;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
+import group10.gui.testGUI;
+
 /**
  * Created by John on 5/3/2015.
  */
@@ -230,8 +232,14 @@ public class VoiceControlTest extends Service {
             boolean spinCheck = false;
             for (int i=0; gibberish.size()>i; i++) {
                 if (gibberish.get(i).toLowerCase().equals("spin") || gibberish.get(i).toLowerCase().equals("teen") == true) {
+                    Intent spinIntent = new Intent(getBaseContext(), testGUI.class);
+                    spinIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    spinIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    spinIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    getApplication().startActivity(spinIntent);
                     System.out.println("Spinågotannanstanstning...");
                     spinCheck = true;
+                   // mNoSpeechCountDown.start();
                 }
             }
             if (spinCheck == false){
