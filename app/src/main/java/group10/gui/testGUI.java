@@ -40,7 +40,7 @@ public class testGUI extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         View decorView = getWindow().getDecorView();
-// Hide the status bar.
+        //Hide the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
 
@@ -49,8 +49,13 @@ public class testGUI extends ActionBarActivity {
         initWheel(R.id.slot_1);
         initWheel(R.id.slot_2);
         initWheel(R.id.slot_3);
+
+        //Creating an instance of the algorithm
         final algorithm slots=new algorithm();
+
         LinearLayout mix = (LinearLayout)findViewById(R.id.btn_mix);
+
+        //Listener for whole screen clicking
         mix.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 slots.spin();
@@ -62,6 +67,7 @@ public class testGUI extends ActionBarActivity {
         });
         updateStatus();
 
+        //Switcher to handle screen switching to black.
         switcher = (ViewSwitcher) findViewById(R.id.ViewSwitcher);
 
         new AsyncTask() {
