@@ -9,6 +9,8 @@ import java.util.Random;
 public class algorithm {
     //Chance of getting wild (1/value)
     static int wildChance=10;
+    //Amount of spins the user starts with
+    static int startSpins=1;
 
     //Ints for handling the different slot images (1-12)
     int img1;
@@ -28,7 +30,7 @@ public class algorithm {
         img2=0;
         img3=0;
         prevSpin=0;
-        spinsLeft=30;
+        spinsLeft=startSpins;
     }
 
     public int get1() {
@@ -67,6 +69,7 @@ public class algorithm {
         if (result<=10) {
             //Prevention of loss streak
             prevSpin+=1;
+            spinsLeft-=1;
 
             img1=rand.nextInt(12)+1;
             if (img1==12) {
@@ -96,6 +99,7 @@ public class algorithm {
         //Cherry (1)
         else if (11<=result && result<=27) {
             prevSpin=0;
+            spinsLeft-=1;
             if (rand.nextInt(wildChance)+1==1)
                 img1=12;
             else
@@ -113,6 +117,7 @@ public class algorithm {
         //Pine tree (2)
         else if (28<=result && result<=38) {
             prevSpin=0;
+            spinsLeft-=1;
             if (rand.nextInt(wildChance)+1==1)
                 img1=12;
             else
@@ -130,6 +135,7 @@ public class algorithm {
         //"Bar" (3)
         else if (39<=result && result<=49) {
             prevSpin=0;
+            spinsLeft-=1;
             if (rand.nextInt(wildChance)+1==1)
                 img1=12;
             else
@@ -147,6 +153,7 @@ public class algorithm {
         //Bell (4)
         else if (50<=result && result<=58) {
             prevSpin=0;
+            spinsLeft-=1;
             if (rand.nextInt(wildChance)+1==1)
                 img1=12;
             else
@@ -164,6 +171,7 @@ public class algorithm {
         //Snowflake (5)
         else if (59<=result && result<=67) {
             prevSpin=0;
+            spinsLeft-=1;
             if (rand.nextInt(wildChance)+1==1)
                 img1=12;
             else
@@ -181,6 +189,7 @@ public class algorithm {
         //Mead tankard (6)
         else if (68<=result && result<=75) {
             prevSpin=0;
+            spinsLeft-=1;
             if (rand.nextInt(wildChance)+1==1)
                 img1=12;
             else
@@ -198,6 +207,7 @@ public class algorithm {
         //Snowball (7)
         else if (76<=result && result<=82) {
             prevSpin=0;
+            spinsLeft-=1;
             if (rand.nextInt(wildChance)+1==1)
                 img1=12;
             else
@@ -215,6 +225,7 @@ public class algorithm {
         //Moose (8)
         else if (83<=result && result<=88) {
             prevSpin=0;
+            spinsLeft-=1;
             if (rand.nextInt(wildChance)+1==1)
                 img1=12;
             else
@@ -232,7 +243,6 @@ public class algorithm {
         //Coin (9)
         else if (89<=result && result<=93) {
             prevSpin=0;
-            spinsLeft+=1;
             if (rand.nextInt(wildChance)+1==1)
                 img1=12;
             else
@@ -250,7 +260,7 @@ public class algorithm {
         //"7" (10)
         else if (94<=result && result<=98) {
             prevSpin=0;
-            spinsLeft+=3;
+            spinsLeft+=2;
             if (rand.nextInt(wildChance)+1==1)
                 img1=12;
             else
@@ -269,7 +279,7 @@ public class algorithm {
         else if (99<=result) {
             //Prevention of "high win" streak
             prevSpin-=1;
-            spinsLeft+=10;
+            spinsLeft+=9;
             if (rand.nextInt(wildChance)+1==1)
                 img1=12;
             else

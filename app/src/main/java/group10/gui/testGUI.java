@@ -1,5 +1,6 @@
 package group10.gui;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -58,16 +59,20 @@ public class testGUI extends ActionBarActivity {
         //Listener for whole screen clicking
         mix.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //User has more spins
                 if (slots.getSpins()>0) {
                     slots.spin();
                     System.out.println("Result: " + slots.getResult());
+                    System.out.println(slots.getSpins());
                     mixWheel(R.id.slot_1, slots.get1(), 1);
                     mixWheel(R.id.slot_2, slots.get2(), 2);
                     mixWheel(R.id.slot_3, slots.get3(), 3);
                 }
+                //User has no more spins
                 else {
                     //TODO
                     //Submit score
+                    showPopup();
                 }
             }
         });
@@ -333,6 +338,13 @@ public class testGUI extends ActionBarActivity {
 
             return img;
         }
+    }
+
+    public void showPopup(){
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("INFO!");
+        alertDialog.setMessage("This app is made by group 10...");
+        alertDialog.show();
     }
 /*
     @Override
