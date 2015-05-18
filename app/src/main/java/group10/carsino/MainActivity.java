@@ -38,8 +38,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void showPopup(View view){
-
-
         WindowManager.LayoutParams attrs = getWindow().getAttributes();
         attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
         getWindow().setAttributes(attrs);
@@ -48,7 +46,6 @@ public class MainActivity extends ActionBarActivity {
         alertDialog.setTitle("INFO!");
         alertDialog.setMessage("This app is made by group 10...");
         alertDialog.show();
-
     }
 
     @Override

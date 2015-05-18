@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -128,7 +129,7 @@ public class testGUI extends ActionBarActivity {
                             public void lightModeChanged(LightMode lightMode) {}
                         }
 
-                ).register(AutomotiveSignalId.FMS_WHEEL_BASED_SPEED); // Register for the speed signal
+                ).register(AutomotiveSignalId.FMS_WHEEL_BASED_SPEED, AutomotiveSignalId.FMS_PARKING_BRAKE); // Register for the signals
                 return null;
             }
         }.execute(); // And go!
@@ -341,6 +342,10 @@ public class testGUI extends ActionBarActivity {
     }
 
     public void showPopup(){
+        WindowManager.LayoutParams attrs = getWindow().getAttributes();
+        attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        getWindow().setAttributes(attrs);
+
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle("INFO!");
         alertDialog.setMessage("This app is made by group 10...");
