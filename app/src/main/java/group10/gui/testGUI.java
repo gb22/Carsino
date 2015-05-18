@@ -42,7 +42,7 @@ public class testGUI extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         View decorView = getWindow().getDecorView();
-        //Hide the status bar.
+        //Hide the status bar
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
 
