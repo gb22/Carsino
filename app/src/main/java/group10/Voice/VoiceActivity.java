@@ -31,7 +31,7 @@ public class VoiceActivity extends ActionBarActivity {
         activityContext= this;
         Intent service = new Intent(activityContext, VoiceControlTest.class);
         activityContext.startService(service);
-        mBindFlag = Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH ? 0 : Context.BIND_ABOVE_CLIENT;
+        //mBindFlag = Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH ? 0 : Context.BIND_ABOVE_CLIENT;
 
     }
 
@@ -56,5 +56,11 @@ public class VoiceActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onDestroy(){
+        super.onDestroy();
+        System.out.println("Denna kanske förstörs");
+        stopService(new Intent(this, VoiceControlTest.class));
     }
 }

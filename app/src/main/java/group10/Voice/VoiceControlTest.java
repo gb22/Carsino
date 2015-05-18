@@ -20,6 +20,8 @@ import android.speech.SpeechRecognizer;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import group10.gui.testGUI;
@@ -140,7 +142,9 @@ public class VoiceControlTest extends Service {
     public void onDestroy()
     {
         super.onDestroy();
-
+        System.out.println("Kommer den änns in hit?");
+        mSpeechRecognizer.destroy();
+        stopService(new Intent(this, VoiceControlTest.class));
         if (mIsCountDownOn)
         {
             mNoSpeechCountDown.cancel();
@@ -149,6 +153,8 @@ public class VoiceControlTest extends Service {
         {
             mSpeechRecognizer.destroy();
         }
+        //this.stopSelf();
+
     }
 
     protected class SpeechRecognitionListener implements RecognitionListener
@@ -231,15 +237,31 @@ public class VoiceControlTest extends Service {
             ArrayList<String> gibberish = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
             boolean spinCheck = false;
             for (int i=0; gibberish.size()>i; i++) {
-                if (gibberish.get(i).toLowerCase().equals("spin") || gibberish.get(i).toLowerCase().equals("teen") == true) {
+                if (gibberish.get(i).toLowerCase().equals("spin") ||
+                        gibberish.get(i).toLowerCase().equals("teen") == true ||
+                        gibberish.get(i).toLowerCase().equals("snurra") == true ||
+                        gibberish.get(i).toLowerCase().equals("spin the wheel") ==true ||
+                        gibberish.get(i).toLowerCase().equals("spin again") == true ||
+                        gibberish.get(i).toLowerCase().equals("spin damn you") == true ||
+                        gibberish.get(i).toLowerCase().equals("spin that wheel") == true ||
+                        gibberish.get(i).toLowerCase().equals("snurra hjulet") == true ||
+                        gibberish.get(i).toLowerCase().equals("snurra då") == true ||
+                        gibberish.get(i).toLowerCase().equals("snurra för fan") == true ||
+                        gibberish.get(i).toLowerCase().equals("vuelta") == true ||
+                        gibberish.get(i).toLowerCase().equals("tourner") == true ||
+                        gibberish.get(i).toLowerCase().equals("spritztour") == true ||
+                        gibberish.get(i).toLowerCase().equals("rulla") == true
+                        )
+                {
                     Intent spinIntent = new Intent(getBaseContext(), testGUI.class);
                     spinIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     spinIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     spinIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    spinIntent.putExtra("Spin","Spin");
                     getApplication().startActivity(spinIntent);
                     System.out.println("Spinågotannanstanstning...");
                     spinCheck = true;
-                   // mNoSpeechCountDown.start();
+                    mNoSpeechCountDown.start();
                 }
             }
             if (spinCheck == false){

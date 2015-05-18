@@ -42,7 +42,7 @@ public class testGUI extends ActionBarActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        System.out.println("Försöker spinna");
         View decorView = getWindow().getDecorView();
 // Hide the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
@@ -202,8 +202,9 @@ public class testGUI extends ActionBarActivity {
     }
 
     public static void voiceClick(){
-
+        System.out.println("VoiceClick");
     }
+
 
     /**
      * Mixes wheel
