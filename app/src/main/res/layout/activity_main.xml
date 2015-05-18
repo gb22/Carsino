@@ -31,4 +31,14 @@
         android:layout_below="@+id/high"
         android:layout_alignStart="@+id/high"
         android:layout_alignEnd="@+id/high" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Carsino"
+        android:id="@+id/textView2"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
