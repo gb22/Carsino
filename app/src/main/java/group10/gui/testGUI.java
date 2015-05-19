@@ -1,6 +1,7 @@
 package group10.gui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import group10.R;
+import group10.Voice.VoiceControlTest;
 import group10.algorithm.algorithm;
 import kankan.wheel.widget.adapters.AbstractWheelAdapter;
 import kankan.wheel.widget.annoyance.OnWheelChangedListener;
@@ -37,11 +39,18 @@ import kankan.wheel.widget.annoyance.WheelView;
 
 public class testGUI extends ActionBarActivity {
 
+    private static Context activityContext;
+
     private ViewSwitcher switcher;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       //start the voicereq service
+        activityContext= this;
+        Intent service = new Intent(activityContext, VoiceControlTest.class);
+        activityContext.startService(service);
+
         System.out.println("Försöker spinna");
         View decorView = getWindow().getDecorView();
 // Hide the status bar.
@@ -330,6 +339,10 @@ public class testGUI extends ActionBarActivity {
 
             return img;
         }
+    }
+    public void onDestroy(){
+        super.onDestroy();
+        stopService(new Intent(this, VoiceControlTest.class));
     }
 /*
     @Override

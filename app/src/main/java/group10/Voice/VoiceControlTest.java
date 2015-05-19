@@ -65,6 +65,7 @@ public class VoiceControlTest extends Service {
                 this.getPackageName());*/
         bindService(new Intent(this, VoiceControlTest.class), mServiceConnection, mBindFlag);
 
+
     }
 
     protected static class IncomingHandler extends Handler
@@ -240,7 +241,7 @@ public class VoiceControlTest extends Service {
                 if (gibberish.get(i).toLowerCase().equals("spin") ||
                         gibberish.get(i).toLowerCase().equals("teen") == true ||
                         gibberish.get(i).toLowerCase().equals("snurra") == true ||
-                        gibberish.get(i).toLowerCase().equals("spin the wheel") ==true ||
+                        gibberish.get(i).toLowerCase().equals("spin the wheel") == true ||
                         gibberish.get(i).toLowerCase().equals("spin again") == true ||
                         gibberish.get(i).toLowerCase().equals("spin damn you") == true ||
                         gibberish.get(i).toLowerCase().equals("spin that wheel") == true ||
@@ -257,7 +258,8 @@ public class VoiceControlTest extends Service {
                     spinIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     spinIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     spinIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    spinIntent.putExtra("Spin","Spin");
+                    spinIntent.putExtra("Spin", "Spin");
+                    Message spinsage = new Message();
                     getApplication().startActivity(spinIntent);
                     System.out.println("Spinågotannanstanstning...");
                     spinCheck = true;
