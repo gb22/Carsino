@@ -1,11 +1,14 @@
 package group10.gui;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
 import android.swedspot.automotiveapi.AutomotiveSignal;
 import android.swedspot.automotiveapi.AutomotiveSignalId;
@@ -40,9 +43,8 @@ import kankan.wheel.widget.annoyance.WheelView;
 public class testGUI extends ActionBarActivity {
 
     private static Context activityContext;
-
+    private LinearLayout mix;
     private ViewSwitcher switcher;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +52,9 @@ public class testGUI extends ActionBarActivity {
         activityContext= this;
         Intent service = new Intent(activityContext, VoiceControlTest.class);
         activityContext.startService(service);
+        //register Receiver
+        LocalBroadcastManager.getInstance(this).registerReceiver(spinReceiver, new IntentFilter("spinIntent"));
 
-        System.out.println("Försöker spinna");
         View decorView = getWindow().getDecorView();
 // Hide the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
@@ -63,7 +66,7 @@ public class testGUI extends ActionBarActivity {
         initWheel(R.id.slot_2);
         initWheel(R.id.slot_3);
         final algorithm slots=new algorithm();
-        LinearLayout mix = (LinearLayout)findViewById(R.id.btn_mix);
+        mix = (LinearLayout)findViewById(R.id.btn_mix);
         mix.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 slots.spin();
@@ -210,9 +213,6 @@ public class testGUI extends ActionBarActivity {
         return getWheel(id).getCurrentItem() == value;
     }
 
-    public static void voiceClick(){
-        System.out.println("VoiceClick");
-    }
 
 
     /**
@@ -344,6 +344,15 @@ public class testGUI extends ActionBarActivity {
         super.onDestroy();
         stopService(new Intent(this, VoiceControlTest.class));
     }
+    private BroadcastReceiver spinReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Extract data included in the Intent
+            mix.performClick();
+            System.out.println("broadcastrecieved");
+
+        }
+    };
 /*
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -17,6 +17,7 @@ import android.os.RemoteException;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.support.v4.content.LocalBroadcastManager;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
@@ -254,13 +255,14 @@ public class VoiceControlTest extends Service {
                         gibberish.get(i).toLowerCase().equals("rulla") == true
                         )
                 {
-                    Intent spinIntent = new Intent(getBaseContext(), testGUI.class);
+                    /*Intent spinIntent = new Intent(getBaseContext(), testGUI.class);
                     spinIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     spinIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     spinIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     spinIntent.putExtra("Spin", "Spin");
                     Message spinsage = new Message();
-                    getApplication().startActivity(spinIntent);
+                    getApplication().startActivity(spinIntent);*/
+                    sendMessage();
                     System.out.println("Spinågotannanstanstning...");
                     spinCheck = true;
                     mNoSpeechCountDown.start();
@@ -314,7 +316,14 @@ public class VoiceControlTest extends Service {
             mServiceMessenger = null;
         }
 
-    }; // mServiceConnection
+    };
+
+    private void sendMessage() {
+        Intent spinIntent = new Intent("spinIntent");
+
+        spinIntent.putExtra("spinIntent", "spinIntent");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(spinIntent);
+    }
 
     @Override
     public IBinder onBind(Intent intent)
