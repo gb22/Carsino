@@ -1,6 +1,7 @@
 package group10.carsino;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,10 +16,13 @@ import group10.gui.testGUI;
 
 public class MainActivity extends ActionBarActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         View decorView = getWindow().getDecorView();
         //Hide the status bar.
@@ -36,6 +40,8 @@ public class MainActivity extends ActionBarActivity {
         btn.setOnClickListener(listnr);
 
     }
+
+
 
     public void showPopup(View view){
         WindowManager.LayoutParams attrs = getWindow().getAttributes();
