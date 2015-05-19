@@ -7,20 +7,51 @@ import android.view.MenuItem;
 import group10.R;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
-import android.widget.AdapterView;
 
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+import android.database.Cursor;
 
+import static group10.db.JavaDBCon.ConnectingSQL;
+import static group10.db.JavaDBCon.getdata;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONArray;
+import java.util.ArrayList;
+import android.util.Log;
+import org.json.JSONStringer;
 
 
 
 public class highscore extends ActionBarActivity {
-  private static ListView list_view;
+    ListView list;
+    public class data{
+     public String username;
+     public int   score;
+        public String getname(){
+            return username;
+        }
 
+        public void setname(String username){
+
+       this.username = username;
+   }
+        public int getscore(){
+            return score;
+ }
+        public void setscore(int score){
+            this.score =score;
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_highscore);
         populatelistView();
+
     }
 
 
@@ -32,13 +63,37 @@ public class highscore extends ActionBarActivity {
         return true;
     }
 
-    public void populatelistView () {
-        String[]NAMES = new String[]{"tony","jack"};
-        list_view =(ListView)findViewById(R.id.listView);
-        ArrayAdapter<String>adapter =new  ArrayAdapter<String>(this,R.layout.name_list,NAMES);
-        list_view.setAdapter(adapter);
 
-                   }
+
+
+        public void JsonToArrayList(JSONArray myJsonArray) throws JSONException
+        {
+            ArrayList<data> listItems = new ArrayList<data>();
+            JSONObject jo = new JSONObject();
+            Template tem = new Template();
+            ListView list = (ListView) findViewById(R.id.listView);
+
+            String listItemString[] = new String[myJsonArray.length];
+
+            for(int i = 0; i<myJsonArray.length(); i++)
+            {
+                jo = myJsonArray.getJSONObject(i);
+                tem.username = jo.getString("username");
+                listItemString[i]  = tem.username ; // u can change it according to ur need.
+                listItems.add(tem);
+                Log.e("Ninja Archives", tem.username);
+
+        String[] getdata = new String[]{"fsdfsdfs", "dsfsdfsdf"};
+
+        ListView list = (ListView) findViewById(R.id.listView);
+    }
+        ArrayAdapter<String>adapter =new  ArrayAdapter<String>(this,R.layout.name_list,listItemString);
+        list.setAdapter(adapter);
+
+
+    }
+
+
 
 
 

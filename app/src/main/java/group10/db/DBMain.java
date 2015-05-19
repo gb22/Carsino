@@ -8,11 +8,26 @@ import android.view.View;
 import group10.R;
 import  android.widget.Button;
 import android.content.Intent;
+import android.widget.TextView;
+import static group10.db.JavaDBCon.ConnectingSQL;
+import java.sql.Statement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+
+
+
+
+;
 
 
 
 public class DBMain extends ActionBarActivity {
     private static Button button_sbm;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -23,22 +38,23 @@ public class DBMain extends ActionBarActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db);
+
         onClickbuttonListener();
     }
-       public void onClickbuttonListener() {
-           Button button_sbm = (Button) findViewById(R.id.button);
-           button_sbm.setOnClickListener(
-                   new View.OnClickListener() {
-                       @Override
-                       public void onClick(View v) {
-                          Intent intent =new Intent("group10.carsino.highscore");
-                           startActivity(intent);
-                       }
 
-                   }
-           );
-       }
+    public void onClickbuttonListener() {
+        Button button_sbm = (Button) findViewById(R.id.button);
+        button_sbm.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent("group10.carsino.highscore");
+                        startActivity(intent);
+                    }
 
+                }
+        );
+    }
 
 
     @Override
@@ -64,18 +80,69 @@ public class DBMain extends ActionBarActivity {
     }
 
 
-
-    public void buttononclick(View v ){
-
+    public void buttononclick(View v) {
 
 
-        JavaDBCon.InsertUser("group 7",10);
-
+        JavaDBCon.InsertUser("group 7", 10);
 
 
     }
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

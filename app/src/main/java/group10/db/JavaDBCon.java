@@ -22,7 +22,7 @@ public class JavaDBCon {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("Connected1");
+            System.out.println("Connected");
             Log.d("Worked", "sdsdsd666uu tony???????????????");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -67,18 +67,38 @@ public class JavaDBCon {
                 Log.d("2222", "2222");
             }
             Statement statement = conn.createStatement();
-            Log.d("BDJDS33333333333333333333333333", "sdsdsdsdsds");
+            Log.d("BDJDS3333333", "sdsdsdsdsds");
 
             statement.execute(query);
-            Log.d("BDJDS4444444444444444444444444444444444", "dssd3333");
+            Log.d("BDJDS444444444444444444", "dssd3333");
             statement.close();
-            Log.d("BDJDS555555555555555555555555", "5t5gtggb");
+            Log.d("BDJDS55555555555555555", "5t5gtggb");
             conn.close();
             Log.d("BDJDS", "ghghgth6667");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+    public static void getdata(String username) {
+        Connection conn = ConnectingSQL();
+
+        try {
+
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM HighScore");
+            while (rs.next()) {
+                String name1 = rs.getString("NAME");
+                int score = rs.getInt("Score");
+
+                System.out.println(name1 + "\n" + score
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
+
 
 
