@@ -30,11 +30,11 @@ public class DBMain extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-       // if (android.os.Build.VERSION.SDK_INT > 9) {
-        //    android.os.StrictMode.ThreadPolicy policy =
-        //            new android.os.StrictMode.ThreadPolicy.Builder().permitAll().build();
-         //   android.os.StrictMode.setThreadPolicy(policy);
-       // }
+       if (android.os.Build.VERSION.SDK_INT > 9) {
+          android.os.StrictMode.ThreadPolicy policy =
+                    new android.os.StrictMode.ThreadPolicy.Builder().permitAll().build();
+            android.os.StrictMode.setThreadPolicy(policy);
+       }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db);
@@ -81,13 +81,13 @@ public class DBMain extends ActionBarActivity {
     }
 
 
-    /*public void buttononclick(View v) {
+    public void buttononclick(View v) {
 
 
         JavaDBCon.getdata();
 
 
-    }*/
+    }
 }
 
 
