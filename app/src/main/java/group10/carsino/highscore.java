@@ -1,6 +1,6 @@
 package group10.carsino;
 
-import android.os.AsyncTask;
+
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,40 +9,6 @@ import android.view.MenuItem;
 import group10.R;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
-
-import java.lang.reflect.Member;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.Statement;
-import java.sql.SQLException;
-import java.sql.ResultSet;
-import android.database.Cursor;
-
-import static group10.db.JavaDBCon.ConnectingSQL;
-import static group10.db.JavaDBCon.getdata;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONArray;
-import java.util.ArrayList;
-import android.util.Log;
-import org.json.JSONStringer;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
-import java.sql.SQLException;
-import java.sql.ResultSet;
-import android.view.View;
-import android.widget.TextView;
-import static group10.db.JavaDBCon.ConnectingSQL;
-import java.sql.Statement;
-import java.sql.SQLException;
-import java.sql.ResultSet;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.util.ResourceBundle;
-
-import org.json.JSONException;
 import group10.db.JavaDBCon;
 import group10.db.JavaDBCon.data;
 
@@ -67,25 +33,29 @@ public class highscore extends ActionBarActivity {
 
 
 
-    static ArrayList<String> resultRow;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        data[] data = (JavaDBCon.data[]) getIntent().getExtras().get("Someth");
+        populataListView(data);
         setContentView(R.layout.activity_highscore);
-        populataListView();
-        StrictMode.enableDefaults();
+
     }
 
 
-    public void populataListView() {
+    public void populataListView(data[] Data) {
 
-
-       data[] Data = JavaDBCon.Getdatas();
         String[] teams = new String[Data.length];
+
         for (int i = 0; i < Data.length; i++) {
-            teams[i] = Data[i].getName();
+            teams[i] = Data[i].getName() + Data[i].getscore();
+
+
+
+
 
 
             ListView list = (ListView) findViewById(R.id.listView);

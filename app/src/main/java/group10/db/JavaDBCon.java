@@ -10,6 +10,7 @@ import android.util.Log;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLOutput;
 import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
@@ -38,11 +39,13 @@ public class JavaDBCon {
         String password = "zH6!eW7*";
         Connection conn = null;
         try {
-            Log.d("Worked", "sdsdsd666uu tony????");
+            System.out.println("Inne i try");
 
-            conn = DriverManager.getConnection(url + dbName, userName, password);
+            Connection connn = DriverManager.getConnection(url+dbName, userName, password);
 
-            Log.d("Worked", "sdsdsd666uu tony");
+            System.out.println("efter connn");
+
+            return connn;
         } catch (java.sql.SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -119,16 +122,20 @@ public class JavaDBCon {
         }
     }
 
-    public  static data[] Getdatas() {
+    public static data[] Getdatas() {
         Connection conn = ConnectingSQL();
         data t = null;
         ResultSet rs = null;
         data[] ta = null;
         int rsrows = 0;
         String s = "SELECT * FROM HighScore";
+        System.out.println(conn);
         try {
-            PreparedStatement outstatement = (PreparedStatement) conn.prepareStatement(s);
+            System.out.println("ITY");
+            PreparedStatement outstatement = conn.prepareStatement(s);
+            System.out.println("ITY2");
             rs = outstatement.executeQuery();
+            System.out.println("ITY3");
             rs.last();
             rsrows = rs.getRow();
             rs.beforeFirst();
@@ -140,7 +147,8 @@ public class JavaDBCon {
         for (int i = 0; i < rsrows; i++) {
             try {
                 rs.next();
-                t = new data(rs.getString("NAME"), rs.getInt("Score"));
+                t = new data(rs.getString(1), rs.getString(2));
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -149,15 +157,16 @@ public class JavaDBCon {
         return ta;
     }
 
-    public static class data {
+    public static class data extends Object {
         public String name;
-        public int score;
-
-        data(String n, int p) {
+        public String score;
+        data(String n, String p) {
             this.setName(n);
             this.setscore(p);
 
         }
+
+
 
         public String getName() {
             return name;
@@ -167,11 +176,11 @@ public class JavaDBCon {
             this.name = name;
         }
 
-        public int getscore() {
+        public String getscore() {
             return score;
         }
 
-        public void setscore(int score) {
+        public void setscore(String score) {
             this.score = score;
         }
     }
