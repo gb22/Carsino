@@ -13,7 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
-
+import java.util.ArrayList;
 
 
 public class JavaDBCon {
@@ -98,7 +98,81 @@ public class JavaDBCon {
             e.printStackTrace();
         }
     }
+
+
+    public static void getdata() {
+        Connection conn = ConnectingSQL();
+
+        try {
+
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM HighScore");
+            while (rs.next()) {
+                String name1 = rs.getString("NAME");
+                int score = rs.getInt("Score");
+
+                System.out.println(name1 + "\n" + score
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public  static data[] Getdatas() {
+        Connection conn = ConnectingSQL();
+        data t = null;
+        ResultSet rs = null;
+        data[] ta = null;
+        int rsrows = 0;
+        String s = "SELECT * FROM HighScore";
+        try {
+            PreparedStatement outstatement = (PreparedStatement) conn.prepareStatement(s);
+            rs = outstatement.executeQuery();
+            rs.last();
+            rsrows = rs.getRow();
+            rs.beforeFirst();
+            ta = new data[rsrows];
+            System.out.println("Made a resultset");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < rsrows; i++) {
+            try {
+                rs.next();
+                t = new data(rs.getString("NAME"), rs.getInt("Score"));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            ta[i] = t;
+        }
+        return ta;
+    }
+
+    public static class data {
+        public String name;
+        public int score;
+
+        data(String n, int p) {
+            this.setName(n);
+            this.setscore(p);
+
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getscore() {
+            return score;
+        }
+
+        public void setscore(int score) {
+            this.score = score;
+        }
+    }
 }
-
-
-

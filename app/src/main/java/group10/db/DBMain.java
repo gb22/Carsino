@@ -42,7 +42,7 @@ public class DBMain extends ActionBarActivity {
         onClickbuttonListener();
     }
 
-    public void onClickbuttonListener() {
+   public void onClickbuttonListener() {
         Button button_sbm = (Button) findViewById(R.id.button);
         button_sbm.setOnClickListener(
                 new View.OnClickListener() {
@@ -55,7 +55,6 @@ public class DBMain extends ActionBarActivity {
                 }
         );
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,7 +82,7 @@ public class DBMain extends ActionBarActivity {
     public void buttononclick(View v) {
 
 
-        JavaDBCon.InsertUser("group 7", 10);
+        JavaDBCon.getdata();
 
 
     }
