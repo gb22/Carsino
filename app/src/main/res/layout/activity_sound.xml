@@ -41,4 +41,15 @@
         android:layout_marginTop="65dp"
         android:layout_alignEnd="@+id/sound_button" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnsoundfour"
+        android:onClick="playSoundfour"
+        android:id="@+id/buttontwo"
+        android:layout_below="@+id/button"
+        android:layout_alignStart="@+id/button"
+        android:layout_marginTop="61dp"
+        android:layout_alignEnd="@+id/button" />
+
 </RelativeLayout>

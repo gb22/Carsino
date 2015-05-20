@@ -15,9 +15,11 @@ public class Sound extends ActionBarActivity {
     MediaPlayer Sound;
     MediaPlayer Soundtwo;
     MediaPlayer Soundthree;
+    MediaPlayer Soundfour;
     private static Button btnsound;
     private static Button btnsoundtwo;
     private static Button soundthree;
+    private static Button soundfour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +28,11 @@ public class Sound extends ActionBarActivity {
         Sound = MediaPlayer.create (this, R.raw.coins);
         Soundtwo= MediaPlayer.create(this, R.raw.bell);
         Soundthree= MediaPlayer.create(this, R.raw.fallingcoins);
+        Soundfour= MediaPlayer.create(this, R.raw.winalarm);
         playsound();
         playsoundtwo();
         playsoundthree();
+        playsoundfour();
     }
 
     public void playSound (View view) {
@@ -71,6 +75,18 @@ public class Sound extends ActionBarActivity {
                     public void onClick(View v) {
 
                         Soundthree.start();
+
+                    }
+                });
+    }
+    public void playsoundfour() {
+        soundfour = (Button) findViewById(R.id.buttontwo);
+        soundfour.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Soundfour.start();
 
                     }
                 });

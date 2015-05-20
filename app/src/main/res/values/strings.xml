@@ -11,4 +11,6 @@
     <string name="button_soundtwo">soundtwo</string>
     <string name="btnsoundtwo">soundtwo</string>
     <string name="soundthree">SOUNDTHREE</string>
+    <string name="soundfour">New Button</string>
+    <string name="btnsoundfour">soundfour</string>
 </resources>
