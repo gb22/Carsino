@@ -1,8 +1,8 @@
 package group10.carsino;
 
 import android.media.MediaPlayer;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,16 +12,22 @@ import group10.R;
 
 
 public class Sound extends ActionBarActivity {
-
     MediaPlayer Sound;
+    MediaPlayer Soundtwo;
+    MediaPlayer Soundthree;
     private static Button btnsound;
+    private static Button btnsoundtwo;
+    private static Button soundthree;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sound);
-        Sound = MediaPlayer.create(this, R.raw.coins);
+        Sound = MediaPlayer.create (this, R.raw.coins);
+        Soundtwo= MediaPlayer.create(this, R.raw.bell);
         playsound();
+        playsoundtwo();
+        playsoundthree();
     }
 
     public void playSound (View view) {
@@ -32,14 +38,41 @@ public class Sound extends ActionBarActivity {
         btnsound=(Button) findViewById(R.id.button_sound);
 
         btnsound.setOnClickListener(
-                new View.OnClickListener(){
+                new View.OnClickListener() {
                     @Override
-                public void onClick (View v){
+                    public void onClick(View v) {
 
                         Sound.start();
 
                     }
-    });
+                });
+    }
+
+
+    public void playsoundtwo() {
+        btnsoundtwo = (Button) findViewById(R.id.sound_button);
+        btnsoundtwo.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Soundtwo.start();
+
+                    }
+                });
+    }
+
+    public void playsoundthree() {
+        soundthree = (Button) findViewById(R.id.button);
+        soundthree.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Soundthree.start();
+
+                    }
+                });
     }
 
     @Override
@@ -64,4 +97,3 @@ public class Sound extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 }
-
