@@ -10,7 +10,11 @@
     <uses-permission android:name="sound" />
 
 
-
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
     <activity
         android:name=".carsino.MainActivity"
         android:configChanges="keyboardHidden|orientation|screenSize"
@@ -64,11 +68,7 @@
         android:label="Voice Controller" >
     </service>
 
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+
         <activity
             android:name=".carsino.Sound"
             android:label="@string/title_activity_sound" >
