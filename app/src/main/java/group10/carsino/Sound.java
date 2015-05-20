@@ -25,6 +25,7 @@ public class Sound extends ActionBarActivity {
         setContentView(R.layout.activity_sound);
         Sound = MediaPlayer.create (this, R.raw.coins);
         Soundtwo= MediaPlayer.create(this, R.raw.bell);
+        Soundthree= MediaPlayer.create(this, R.raw.fallingcoins);
         playsound();
         playsoundtwo();
         playsoundthree();
