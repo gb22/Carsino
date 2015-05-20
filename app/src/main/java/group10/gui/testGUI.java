@@ -34,7 +34,7 @@ import com.swedspot.vil.policy.*;
 import com.swedspot.vil.distraction.*;
 
 public class testGUI extends ActionBarActivity {
-
+    final algorithm slots=new algorithm();
     private ViewSwitcher switcher;
 
     @Override
@@ -53,7 +53,7 @@ public class testGUI extends ActionBarActivity {
         initWheel(R.id.slot_3);
 
         //Creating an instance of the algorithm
-        final algorithm slots=new algorithm();
+      //  final algorithm slots=new algorithm();
 
         LinearLayout mix = (LinearLayout)findViewById(R.id.btn_mix);
 
@@ -165,11 +165,9 @@ public class testGUI extends ActionBarActivity {
      */
     private void updateStatus() {
         TextView text = (TextView) findViewById(R.id.pwd_status);
-        if (test()) {
-            text.setText("Congratulation!");
-        } else {
-            text.setText("");
-        }
+
+            text.setText(String.valueOf(slots.getScore()));
+
     }
 
     /**
@@ -252,12 +250,12 @@ public class testGUI extends ActionBarActivity {
         slots-=1;
         slots=slots-getWheel(id).getCurrentItem();
         System.out.println("Current item: "+getWheel(id).getCurrentItem());
-        System.out.println("ID: "+id);
+        System.out.println("ID: " + id);
         // slots=Math.abs(slots);
         if(slots<0){
             slots+=12;
         }
-        wheel.scroll(slots-(12*4), 5000*time);
+        wheel.scroll(slots - (12 * 4), 5000 * time);
     }
 
     /**
