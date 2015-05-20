@@ -92,19 +92,30 @@ public class testGUI extends ActionBarActivity {
                         new AutomotiveListener() { // Listener that observes the Signals
                             @Override
                             public void receive(final AutomotiveSignal automotiveSignal) {
-                                switcher.post(new Runnable() { // Post the result back to the View/UI thread
-                                    public void run() {
+                                //Switch to handle different signals from AGA
+                                switch (automotiveSignal.getSignalId()) {
+                                    //Case for speed
+                                    case AutomotiveSignalId.FMS_WHEEL_BASED_SPEED:
+                                        switcher.post(new Runnable() { // Post the result back to the View/UI thread
+                                        public void run() {
+                                            if (((SCSFloat) automotiveSignal.getData()).getFloatValue() > 0 && prevSpeed.equals(0)) {
+                                                switcher.showNext();
+                                                prevSpeed = new Integer(1);
+                                            } else if (((SCSFloat) automotiveSignal.getData()).getFloatValue() == 0 && prevSpeed.equals(1)) {
+                                                switcher.showPrevious();
+                                                prevSpeed = new Integer(0);
+                                            }
+                                        }
+                                        });
+                                        break;
+                                    //Case for parking brake
+                                    case AutomotiveSignalId.FMS_PARKING_BRAKE:
 
-                                        if(((SCSFloat) automotiveSignal.getData()).getFloatValue()>0 && prevSpeed.equals(0)) {
-                                            switcher.showNext();
-                                            prevSpeed=new Integer(1);
-                                        }
-                                        else if (((SCSFloat) automotiveSignal.getData()).getFloatValue()==0 && prevSpeed.equals(1)) {
-                                            switcher.showPrevious();
-                                            prevSpeed=new Integer(0);
-                                        }
-                                    }
-                                });
+                                        break;
+                                    //Default for other inputs
+                                    default:
+                                        break;
+                                }
                             }
                             @Override
                             public void timeout(int i) {}
