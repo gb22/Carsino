@@ -82,8 +82,15 @@ public class testGUI extends ActionBarActivity {
         //Switcher to handle screen switching to black.
         switcher = (ViewSwitcher) findViewById(R.id.ViewSwitcher);
 
+
+
         new AsyncTask() {
-            Integer prevSpeed=new Integer(0);
+            //Ints to handle the states of the signals for AGA
+            int wheelSpeed=0;
+            int handBrake=0;
+            //Int to handle current view
+            int lastView=0;
+
             @Override
             protected Object doInBackground(Object... objects) {
                 // Access to Automotive API
@@ -96,26 +103,35 @@ public class testGUI extends ActionBarActivity {
                                 switch (automotiveSignal.getSignalId()) {
                                     //Case for speed
                                     case AutomotiveSignalId.FMS_WHEEL_BASED_SPEED:
-                                        switcher.post(new Runnable() { // Post the result back to the View/UI thread
-                                        public void run() {
-                                            if (((SCSFloat) automotiveSignal.getData()).getFloatValue() > 0 && prevSpeed.equals(0)) {
-                                                switcher.showNext();
-                                                prevSpeed = new Integer(1);
-                                            } else if (((SCSFloat) automotiveSignal.getData()).getFloatValue() == 0 && prevSpeed.equals(1)) {
-                                                switcher.showPrevious();
-                                                prevSpeed = new Integer(0);
-                                            }
-                                        }
-                                        });
+                                        if (((SCSFloat) automotiveSignal.getData()).getFloatValue() > 0 && wheelSpeed==0) {
+                                            wheelSpeed = 1;
+                                        } else if (((SCSFloat) automotiveSignal.getData()).getFloatValue() == 0 && wheelSpeed==1) {
+                                            wheelSpeed = 0;
+                                        };
                                         break;
                                     //Case for parking brake
                                     case AutomotiveSignalId.FMS_PARKING_BRAKE:
-
+                                        if (((Uint8) automotiveSignal.getData()).getIntValue() == 1 && handBrake==0) {
+                                            handBrake = 1;
+                                        } else if (((Uint8) automotiveSignal.getData()).getIntValue() == 0 && handBrake==1) {
+                                            handBrake = 0;
+                                        }
                                         break;
                                     //Default for other inputs
                                     default:
                                         break;
-                                }
+                                }//Switch statement end
+                                switcher.post(new Runnable() { // Post the result back to the switcher
+                                    public void run() {
+                                        if (handBrake==1 && wheelSpeed==0 && lastView==1) {
+                                            lastView=0;
+                                            switcher.showPrevious();
+                                        } else if ((handBrake==0 || wheelSpeed==1) && lastView==0) {
+                                            lastView=1;
+                                            switcher.showNext();
+                                        }
+                                    }
+                                });
                             }
                             @Override
                             public void timeout(int i) {}
@@ -263,7 +279,7 @@ public class testGUI extends ActionBarActivity {
         System.out.println("Current item: "+getWheel(id).getCurrentItem());
         System.out.println("ID: " + id);
         // slots=Math.abs(slots);
-        if(slots<0){
+        if (slots<0){
             slots+=12;
         }
         wheel.scroll(slots - (12 * 4), 5000 * time);
