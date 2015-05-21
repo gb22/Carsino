@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
@@ -50,6 +51,7 @@ public class testGUI extends ActionBarActivity {
     private static Context activityContext;
     private LinearLayout mix;
     private ViewSwitcher switcher;
+    MediaPlayer Sound;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,8 @@ public class testGUI extends ActionBarActivity {
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
 
+        Sound = MediaPlayer.create(this, R.raw.jockemedkniven);
+
         setContentView(R.layout.slot_machine_layout);
         initWheel(R.id.slot_1);
         initWheel(R.id.slot_2);
@@ -80,6 +84,7 @@ public class testGUI extends ActionBarActivity {
                     slots.spin();
                     System.out.println("Result: " + slots.getResult());
                     System.out.println(slots.getSpins());
+                    Sound.start();
                     mixWheel(R.id.slot_1, slots.get1(), 1);
                     mixWheel(R.id.slot_2, slots.get2(), 2);
                     mixWheel(R.id.slot_3, slots.get3(), 3);
