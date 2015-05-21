@@ -140,7 +140,8 @@ public class JavaDBCon extends ActionBarActivity {
         ResultSet rs = null;
         data[] ta = null;
         int rsrows = 0;
-        String s = "SELECT * FROM HighScore";
+
+        String s = "SELECT Name,Score FROM HighScore Order By Score Desc LIMIT 10";
         System.out.println(conn);
         try {
             System.out.println("ITY");
