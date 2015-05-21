@@ -1,24 +1,42 @@
 package group10.gui;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.ActionBarActivity;
+import android.swedspot.automotiveapi.AutomotiveSignal;
+import android.swedspot.automotiveapi.AutomotiveSignalId;
+import android.swedspot.scs.data.SCSFloat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
+
+import com.swedspot.automotiveapi.AutomotiveFactory;
+import com.swedspot.automotiveapi.AutomotiveListener;
+import com.swedspot.vil.distraction.DriverDistractionLevel;
+import com.swedspot.vil.distraction.DriverDistractionListener;
+import com.swedspot.vil.distraction.LightMode;
+import com.swedspot.vil.distraction.StealthMode;
+import com.swedspot.vil.policy.AutomotiveCertificate;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.List;
 
 import group10.R;
+import group10.Voice.VoiceControlTest;
+import group10.algorithm.algorithm;
 import kankan.wheel.widget.adapters.AbstractWheelAdapter;
 import kankan.wheel.widget.annoyance.OnWheelChangedListener;
 import kankan.wheel.widget.annoyance.OnWheelScrollListener;
@@ -34,12 +52,22 @@ import com.swedspot.vil.policy.*;
 import com.swedspot.vil.distraction.*;
 
 public class testGUI extends ActionBarActivity {
+    //Creating an instance of the algorithm
     final algorithm slots=new algorithm();
+
+    private static Context activityContext;
+    private LinearLayout mix;
     private ViewSwitcher switcher;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       //start the voicereq service
+        activityContext= this;
+        Intent service = new Intent(activityContext, VoiceControlTest.class);
+        activityContext.startService(service);
+        //register Receiver
+        LocalBroadcastManager.getInstance(this).registerReceiver(spinReceiver, new IntentFilter("spinIntent"));
 
         View decorView = getWindow().getDecorView();
         //Hide the status bar.
@@ -51,12 +79,10 @@ public class testGUI extends ActionBarActivity {
         initWheel(R.id.slot_1);
         initWheel(R.id.slot_2);
         initWheel(R.id.slot_3);
-
-        //Creating an instance of the algorithm
-      //  final algorithm slots=new algorithm();
-
+        
+        //  final algorithm slots=new algorithm();
+        final algorithm slots=new algorithm();
         LinearLayout mix = (LinearLayout)findViewById(R.id.btn_mix);
-
         //Listener for whole screen clicking
         mix.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -81,8 +107,6 @@ public class testGUI extends ActionBarActivity {
 
         //Switcher to handle screen switching to black.
         switcher = (ViewSwitcher) findViewById(R.id.ViewSwitcher);
-
-
 
         new AsyncTask() {
             //Ints to handle the states of the signals for AGA
@@ -333,7 +357,7 @@ public class testGUI extends ActionBarActivity {
         private Bitmap loadImage(int id) {
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), id);
             Bitmap scaled = Bitmap.createScaledBitmap(bitmap, IMAGE_WIDTH, IMAGE_HEIGHT, true);
-            bitmap.recycle();
+            //bitmap.recycle();
             return scaled;
         }
 
@@ -376,6 +400,19 @@ public class testGUI extends ActionBarActivity {
         alertDialog.setMessage("This app is made by group 10...");
         alertDialog.show();
     }
+    public void onDestroy(){
+        super.onDestroy();
+        stopService(new Intent(this, VoiceControlTest.class));
+    }
+    private BroadcastReceiver spinReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Extract data included in the Intent
+            mix.performClick();
+            System.out.println("broadcastrecieved");
+
+        }
+    };
 /*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
