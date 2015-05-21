@@ -41,11 +41,11 @@ public class JavaDBCon {
         try {
             System.out.println("Inne i try");
 
-            Connection connn = DriverManager.getConnection(url+dbName, userName, password);
+             conn = DriverManager.getConnection(url+dbName, userName, password);
 
             System.out.println("efter connn");
 
-            return connn;
+
         } catch (java.sql.SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -157,7 +157,7 @@ public class JavaDBCon {
         return ta;
     }
 
-    public static class data extends Object {
+    public static class data  {
         public String name;
         public String score;
         data(String n, String p) {

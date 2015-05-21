@@ -1,16 +1,21 @@
 package group10.carsino;
 
 
+import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import group10.R;
+
+import android.view.Window;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 import group10.db.JavaDBCon;
 import group10.db.JavaDBCon.data;
+import android.widget.ListAdapter;
+
 
 
 
@@ -39,32 +44,128 @@ public class highscore extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        data[] data = (JavaDBCon.data[]) getIntent().getExtras().get("Someth");
-        populataListView(data);
+
+
         setContentView(R.layout.activity_highscore);
 
+
+        populataListView();
+
+
+
+
+
     }
+    class MyTask extends AsyncTask<Void,String,Void>{
+        private ArrayAdapter<String> adapter;
 
 
-    public void populataListView(data[] Data) {
-
+        data[] Data = JavaDBCon.Getdatas();
         String[] teams = new String[Data.length];
+        private int count=0;
+        @Override
+        protected void onPreExecute() {
 
-        for (int i = 0; i < Data.length; i++) {
-            teams[i] = Data[i].getName() + Data[i].getscore();
+            setProgressBarIndeterminate(false);
+            setProgressBarVisibility(true);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            for (String item:teams) {
+                publishProgress(item);
+
+                   try {
+                       Thread.sleep(200);
+                   } catch (InterruptedException e) {
+                       e.printStackTrace();
+                   }
+
+               }
 
 
+            return null;
+        }
 
+        @Override
+        protected void onProgressUpdate(String... values) {
+            adapter.add(values[0]);
+            count++;
+            setProgress((int) ((double) count / teams.length) * 10000);
+        }
 
-
-
-            ListView list = (ListView) findViewById(R.id.listView);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.name_list, teams);
-            list.setAdapter(adapter);
+        @Override
+        protected void onPostExecute(Void result) {
+            setProgressBarVisibility(false);
+            L.s(highscore.this,"sucess");
 
 
         }
     }
+
+
+
+
+
+    public void populataListView() {
+        data[] Data = JavaDBCon.Getdatas();
+        final String[] teams = new String[Data.length];
+
+        for (int i = 0; i < Data.length; i++) {
+            teams[i] = Data[i].getName() + "\t" +"Score:"+ Data[i].getscore();
+
+
+            ListView list = (ListView) findViewById(R.id.listView);
+
+            list.setAdapter(new ArrayAdapter<String>(this, R.layout.name_list, teams));
+
+            new MyTask().execute();
+
+        }
+        class MyTask extends AsyncTask<Void, String, Void> {
+            private ArrayAdapter<String> adapter;
+
+
+
+
+            private int count = 0;
+
+            @Override
+            protected void onPreExecute() {
+                adapter = (ArrayAdapter<String>) list.getAdapter();
+                setProgressBarIndeterminate(false);
+                setProgressBarVisibility(true);
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                for (String item : teams)
+                    publishProgress(item);
+
+
+                return null;
+            }
+
+            @Override
+            protected void onProgressUpdate(String... values) {
+                adapter.add(values[0]);
+                count++;
+                setProgress((int) ((double) count / teams.length) * 10000);
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                setProgressBarVisibility(false);
+                L.s(highscore.this, "sucess");
+
+
+            }
+        }
+    }
+
+
+
+
 
 
 
@@ -96,5 +197,7 @@ public class highscore extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
 }

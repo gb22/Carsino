@@ -49,8 +49,8 @@ public class DBMain extends ActionBarActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent("group10.carsino.highscore");
-                        JavaDBCon.data[] data = JavaDBCon.Getdatas();
-                        intent.putExtra("Someth",data);
+
+
                         startActivity(intent);
                     }
 
