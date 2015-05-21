@@ -145,8 +145,10 @@ public class VoiceControlTest extends Service {
     {
         super.onDestroy();
         System.out.println("Kommer den änns in hit?");
-        mSpeechRecognizer.destroy();
         stopService(new Intent(this, VoiceControlTest.class));
+        //unbindService(mServiceConnection);
+        mSpeechRecognizer.destroy();
+
         if (mIsCountDownOn)
         {
             mNoSpeechCountDown.cancel();
@@ -155,7 +157,7 @@ public class VoiceControlTest extends Service {
         {
             mSpeechRecognizer.destroy();
         }
-        //this.stopSelf();
+        this.stopSelf();
 
     }
 
@@ -239,20 +241,13 @@ public class VoiceControlTest extends Service {
             ArrayList<String> gibberish = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
             boolean spinCheck = false;
             for (int i=0; gibberish.size()>i; i++) {
-                if (gibberish.get(i).toLowerCase().equals("spin") ||
+                if (gibberish.get(i).toLowerCase().equals("bing") ||
                         gibberish.get(i).toLowerCase().equals("teen") == true ||
-                        gibberish.get(i).toLowerCase().equals("snurra") == true ||
-                        gibberish.get(i).toLowerCase().equals("spin the wheel") == true ||
-                        gibberish.get(i).toLowerCase().equals("spin again") == true ||
-                        gibberish.get(i).toLowerCase().equals("spin damn you") == true ||
-                        gibberish.get(i).toLowerCase().equals("spin that wheel") == true ||
-                        gibberish.get(i).toLowerCase().equals("snurra hjulet") == true ||
-                        gibberish.get(i).toLowerCase().equals("snurra då") == true ||
-                        gibberish.get(i).toLowerCase().equals("snurra för fan") == true ||
-                        gibberish.get(i).toLowerCase().equals("vuelta") == true ||
-                        gibberish.get(i).toLowerCase().equals("tourner") == true ||
-                        gibberish.get(i).toLowerCase().equals("spritztour") == true ||
-                        gibberish.get(i).toLowerCase().equals("rulla") == true
+                        gibberish.get(i).toLowerCase().equals("njurar") == true ||
+                        gibberish.get(i).toLowerCase().equals("knulla") == true ||
+                        gibberish.get(i).toLowerCase().contains("snurra") == true ||
+                        gibberish.get(i).toLowerCase().contains("spin") ||
+                        gibberish.get(i).toLowerCase().contains("rulla") == true
                         )
                 {
                     /*Intent spinIntent = new Intent(getBaseContext(), testGUI.class);
@@ -262,13 +257,19 @@ public class VoiceControlTest extends Service {
                     spinIntent.putExtra("Spin", "Spin");
                     Message spinsage = new Message();
                     getApplication().startActivity(spinIntent);*/
-                    sendMessage();
-                    System.out.println("Spinågotannanstanstning...");
+
+
                     spinCheck = true;
-                    mNoSpeechCountDown.start();
+
                 }
             }
-            if (spinCheck == false){
+            if (spinCheck == true){
+                spinCheck = false;
+                System.out.println("Spinågotannanstanstning...");
+                sendMessage();
+                mNoSpeechCountDown.start();
+
+            }else{
                 mNoSpeechCountDown.start();
             }
 
