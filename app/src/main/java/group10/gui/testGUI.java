@@ -56,6 +56,7 @@ public class testGUI extends ActionBarActivity {
     private LinearLayout mix;
     private ViewSwitcher switcher;
     MediaPlayer Sound;
+    MediaPlayer Sound2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class testGUI extends ActionBarActivity {
         decorView.setSystemUiVisibility(uiOptions);
 
         Sound = MediaPlayer.create(this, R.raw.jockemedkniven);
+        Sound2 = MediaPlayer.create(this, R.raw.lose);
 
         setContentView(R.layout.slot_machine_layout);
         initWheel(R.id.slot_1);
@@ -88,10 +90,12 @@ public class testGUI extends ActionBarActivity {
                     slots.spin();
                     System.out.println("Result: " + slots.getResult());
                     System.out.println(slots.getSpins());
+
                     Sound.start();
-                    mixWheel(R.id.slot_1, slots.get1(), 1);
-                    mixWheel(R.id.slot_2, slots.get2(), 2);
-                    mixWheel(R.id.slot_3, slots.get3(), 3);
+                    mixWheel(R.id.slot_1, slots.get1(), 1, slots);
+                    mixWheel(R.id.slot_2, slots.get2(), 2, slots);
+                    mixWheel(R.id.slot_3, slots.get3(), 3, slots);
+
                 }
                 //User has no more spins
                 else {
@@ -204,6 +208,18 @@ public class testGUI extends ActionBarActivity {
     private OnWheelChangedListener changedListener = new OnWheelChangedListener() {
         public void onChanged(WheelView wheel, int oldValue, int newValue) {
             if (!wheelScrolled) {
+                if (slots.getResult()<=10) {
+                    Sound2.start();
+                }
+                if (11<=slots.getResult() && slots.getResult()<=58){
+                    Sound2.start();
+                }
+                if(59<=slots.getResult() && slots.getResult()<=88){
+                    Sound2.start();
+                }
+                if(89<=slots.getResult()){
+                    Sound2.start();
+                }
                 updateStatus();
             }
         }
@@ -215,6 +231,7 @@ public class testGUI extends ActionBarActivity {
     private void updateStatus() {
         TextView textMain = (TextView) findViewById(R.id.pwd_status);
         textMain.setText(String.valueOf(slots.getScore()));
+
     }
 
     /**
@@ -291,7 +308,7 @@ public class testGUI extends ActionBarActivity {
       18 yyx
      */
 
-    private void mixWheel(int id, int slots, int time) {
+    private void mixWheel(int id, int slots, int time, algorithm slot) {
 
         WheelView wheel = getWheel(id);
         slots-=1;
@@ -303,6 +320,22 @@ public class testGUI extends ActionBarActivity {
             slots+=12;
         }
         wheel.scroll(slots - (12 * 4), 5000 * time);
+
+     /*   if(time==3){
+
+            if (slot.getResult()<=10) {
+                Sound2.start();
+            }
+            if (11<=slot.getResult() && slot.getResult()<=58){
+                Sound2.start();
+            }
+            if(59<=slot.getResult() && slot.getResult()<=88){
+                Sound2.start();
+            }
+            if(89<=slot.getResult()){
+                Sound2.start();
+            }
+        }*/
     }
 
     /**
@@ -316,18 +349,18 @@ public class testGUI extends ActionBarActivity {
         // Slot machine symbols Symbol is in order of
         // Square of transparent round picture is best!
         private final int items[] = new int[] {
-                android.R.drawable.star_big_on,
-                android.R.drawable.stat_sys_warning,
-                android.R.drawable.radiobutton_on_background,
-                android.R.drawable.ic_delete,
-                android.R.drawable.ic_dialog_email,
-                R.drawable.usa,
-                R.drawable.world_of_warcraft,
-                R.drawable.canada,
-                R.drawable.france,
-                R.drawable.ukraine,
-                android.R.drawable.button_onoff_indicator_off,
-                android.R.drawable.arrow_down_float
+                R.drawable.cherry,
+                R.drawable.fir,
+                R.drawable.bar,
+                R.drawable.bell,
+                R.drawable.snowflake,
+                R.drawable.cask,
+                R.drawable.nowball,
+                R.drawable.deer,
+                R.drawable.euro,
+                R.drawable.pay,
+               android.R.drawable.arrow_down_float, /*TODO BARBAR BAR*/
+                R.drawable.leprechaun
         };
 
         // Cached images
@@ -402,7 +435,6 @@ public class testGUI extends ActionBarActivity {
         alertDialog.setTitle("You have run out of spins!");
 
         //Get actual score
-        setContentView(R.layout.game_finished_dialog);
         TextView textDialog = (TextView) findViewById(R.id.textViewScore);
         System.out.println("Score: " + slots.getScore());
         String name = new Integer(slots.getScore()).toString();
@@ -424,7 +456,7 @@ public class testGUI extends ActionBarActivity {
         //TODO hopefully working
         TextView textInput = (TextView) findViewById(R.id.editTextName);
         String name = textInput.getText().toString();
-        JavaDBCon.InsertUser( name, slots.getScore());
+        JavaDBCon.InsertUser(name, slots.getScore());
     }
 
 
