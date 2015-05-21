@@ -35,7 +35,7 @@
             android:layout_marginTop="24dp"
             android:layout_gravity="center_horizontal"
             android:textSize="18sp"
-            android:textColor="#F00"
+            android:textColor="#fff"
             android:text=""/>
 
         <!--<Button android:id="@+id/btn_mix"

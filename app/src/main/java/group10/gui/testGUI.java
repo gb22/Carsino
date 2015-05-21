@@ -1,6 +1,7 @@
 package group10.gui;
 
 import android.app.AlertDialog;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,8 +19,10 @@ import android.swedspot.scs.data.SCSFloat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -75,8 +78,8 @@ public class testGUI extends ActionBarActivity {
         initWheel(R.id.slot_2);
         initWheel(R.id.slot_3);
 
-        mix = (LinearLayout)findViewById(R.id.btn_mix);
         //Listener for whole screen clicking
+        mix = (LinearLayout)findViewById(R.id.btn_mix);
         mix.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //User has more spins
@@ -209,10 +212,8 @@ public class testGUI extends ActionBarActivity {
      * Updates status
      */
     private void updateStatus() {
-        TextView text = (TextView) findViewById(R.id.pwd_status);
-
-            text.setText(String.valueOf(slots.getScore()));
-
+        TextView textMain = (TextView) findViewById(R.id.pwd_status);
+        textMain.setText(String.valueOf(slots.getScore()));
     }
 
     /**
@@ -383,21 +384,53 @@ public class testGUI extends ActionBarActivity {
             return img;
         }
     }
-
+    //The dialog that pops up after the game session is finished
     public void showPopup(){
         WindowManager.LayoutParams attrs = getWindow().getAttributes();
         attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
         getWindow().setAttributes(attrs);
 
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("INFO!");
-        alertDialog.setMessage("This app is made by group 10...");
+
+        // Get the layout inflater
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        alertDialog.setView(inflater.inflate(R.layout.game_finished_dialog, null));
+        alertDialog.setTitle("You have run out of spins!");
+
+        //Get actual score
+        setContentView(R.layout.game_finished_dialog);
+        TextView textDialog = (TextView) findViewById(R.id.textViewScore);
+        System.out.println("Score: " + slots.getScore());
+        textDialog.setText(slots.getScore());
+        //TODO Not working
         alertDialog.show();
     }
+
+    //Restart button
+    public void restart(View v) {
+        recreate();
+    }
+    //Quit button
+    public void quit(View v) {
+        finish();
+    }
+    //Submit score button
+    public void submit(View v) {
+        //TODO
+        //Submit to DB
+    }
+
+
+
+    //Terminates the service
     public void onDestroy(){
         super.onDestroy();
         stopService(new Intent(this, VoiceControlTest.class));
     }
+
     private BroadcastReceiver spinReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

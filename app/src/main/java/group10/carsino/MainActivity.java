@@ -43,8 +43,8 @@ public class MainActivity extends ActionBarActivity {
         getWindow().setAttributes(attrs);
 
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("INFO!");
-        alertDialog.setMessage("This app is made by group 10...");
+        alertDialog.setTitle("About!");
+        alertDialog.setMessage("This app is made by Group 10 from the University of Gothenburg.");
         alertDialog.show();
     }
 
