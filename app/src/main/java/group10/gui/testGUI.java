@@ -29,6 +29,7 @@ import com.swedspot.vil.distraction.DriverDistractionListener;
 import com.swedspot.vil.distraction.LightMode;
 import com.swedspot.vil.distraction.StealthMode;
 import com.swedspot.vil.policy.AutomotiveCertificate;
+import android.swedspot.scs.data.*;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
@@ -41,15 +42,6 @@ import kankan.wheel.widget.adapters.AbstractWheelAdapter;
 import kankan.wheel.widget.annoyance.OnWheelChangedListener;
 import kankan.wheel.widget.annoyance.OnWheelScrollListener;
 import kankan.wheel.widget.annoyance.WheelView;
-import group10.algorithm.algorithm;
-
-import com.swedspot.automotiveapi.*;
-import android.swedspot.automotiveapi.unit.*;
-import android.swedspot.automotiveapi.*;
-import android.swedspot.scs.data.*;
-import android.widget.ViewSwitcher;
-import com.swedspot.vil.policy.*;
-import com.swedspot.vil.distraction.*;
 
 public class testGUI extends ActionBarActivity {
     //Creating an instance of the algorithm
@@ -62,11 +54,11 @@ public class testGUI extends ActionBarActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       //start the voicereq service
-        activityContext= this;
+        //Start the voicerec service
+        activityContext = this;
         Intent service = new Intent(activityContext, VoiceControlTest.class);
         activityContext.startService(service);
-        //register Receiver
+        //Register Receiver
         LocalBroadcastManager.getInstance(this).registerReceiver(spinReceiver, new IntentFilter("spinIntent"));
 
         View decorView = getWindow().getDecorView();
@@ -74,15 +66,12 @@ public class testGUI extends ActionBarActivity {
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
 
-
         setContentView(R.layout.slot_machine_layout);
         initWheel(R.id.slot_1);
         initWheel(R.id.slot_2);
         initWheel(R.id.slot_3);
-        
-        //  final algorithm slots=new algorithm();
-        final algorithm slots=new algorithm();
-        LinearLayout mix = (LinearLayout)findViewById(R.id.btn_mix);
+
+        mix = (LinearLayout)findViewById(R.id.btn_mix);
         //Listener for whole screen clicking
         mix.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
