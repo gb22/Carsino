@@ -42,6 +42,7 @@ import java.util.List;
 import group10.R;
 import group10.Voice.VoiceControlTest;
 import group10.algorithm.algorithm;
+import group10.db.JavaDBCon;
 import kankan.wheel.widget.adapters.AbstractWheelAdapter;
 import kankan.wheel.widget.annoyance.OnWheelChangedListener;
 import kankan.wheel.widget.annoyance.OnWheelScrollListener;
@@ -404,7 +405,8 @@ public class testGUI extends ActionBarActivity {
         setContentView(R.layout.game_finished_dialog);
         TextView textDialog = (TextView) findViewById(R.id.textViewScore);
         System.out.println("Score: " + slots.getScore());
-        textDialog.setText(slots.getScore());
+        String name = new Integer(slots.getScore()).toString();
+        textDialog.setText(name);
         //TODO Not working
         alertDialog.show();
     }
@@ -419,8 +421,10 @@ public class testGUI extends ActionBarActivity {
     }
     //Submit score button
     public void submit(View v) {
-        //TODO
-        //Submit to DB
+        //TODO hopefully working
+        TextView textInput = (TextView) findViewById(R.id.editTextName);
+        String name = textInput.getText().toString();
+        JavaDBCon.InsertUser( name, slots.getScore());
     }
 
 

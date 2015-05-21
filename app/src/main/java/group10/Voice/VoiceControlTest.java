@@ -48,6 +48,8 @@ public class VoiceControlTest extends Service {
     private int mBindFlag;
     private Messenger mServiceMessenger;
 
+    private static Context activityContext;
+
     @Override
     public void onCreate()
         {
@@ -146,7 +148,7 @@ public class VoiceControlTest extends Service {
         super.onDestroy();
         System.out.println("Kommer den änns in hit?");
         stopService(new Intent(this, VoiceControlTest.class));
-        //unbindService(mServiceConnection);
+        unbindService(mServiceConnection);
         mSpeechRecognizer.destroy();
 
         if (mIsCountDownOn)
@@ -207,7 +209,15 @@ public class VoiceControlTest extends Service {
             {
 
             }
-            System.out.println(error);
+            if(error==8) {
+                stopSelf();
+                System.out.println(error);
+
+                //Start the voicerec service
+                activityContext = getApplicationContext();
+                Intent service = new Intent(activityContext, VoiceControlTest.class);
+                activityContext.startService(service);
+            }
         }
 
         @Override

@@ -25,6 +25,7 @@ public class MainActivity extends ActionBarActivity {
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
 
+        //Listener for slot machine button
         View.OnClickListener listnr=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,6 +35,17 @@ public class MainActivity extends ActionBarActivity {
         };
         Button btn =(Button) findViewById(R.id.btn);
         btn.setOnClickListener(listnr);
+
+        //Listener for highscore button
+        View.OnClickListener listnrHigh=new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent("group10.carsino.highscore");
+                startActivity(intent);
+            }
+        };
+        Button btnhigh =(Button) findViewById(R.id.high);
+        btnhigh.setOnClickListener(listnrHigh);
 
     }
 
