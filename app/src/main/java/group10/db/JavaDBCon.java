@@ -6,6 +6,7 @@ package group10.db;
 
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.widget.EditText;
@@ -59,34 +60,40 @@ public class JavaDBCon extends ActionBarActivity {
     }
 
 
-    public static void InsertUser(String name, int score) {
-        Connection conn = ConnectingSQL();
-        try {
+    public static void InsertUser(final String name, final int score) {
 
-            //PreparedStatement instatement = (PreparedStatement) conn.prepareStatement(TranslatorV1.translateInsertTeam(t.getName(),t.getPnp(),t.isCl()));
-            String query = "INSERT INTO HighScore (Name,Score) VALUES ('" + name + "'," + score + ")";
 
-            Log.d("BDJDS222222222222", query);
+            new AsyncTask() {
+                @Override
+                protected Object doInBackground(Object[] params) {
+                    Connection conn = ConnectingSQL();
+                    try {
+                        //PreparedStatement instatement = (PreparedStatement) conn.prepareStatement(TranslatorV1.translateInsertTeam(t.getName(),t.getPnp(),t.isCl()));
+                        String query = "INSERT INTO HighScore (Name,Score) VALUES ('" + name + "'," + score + ")";
 
-            if (conn.isClosed()) {
-                Log.d("1111", "2222");
-            } else {
-                Log.d("2222", "2222");
-            }
-            Statement statement = conn.createStatement();
-            Log.d("BDJDS3333333", "sdsdsdsdsds");
+                        Log.d("BDJDS222222222222", query);
 
-            statement.execute(query);
-            Log.d("BDJDS444444444444444444", "dssd3333");
-            statement.close();
-            Log.d("BDJDS55555555555555555", "5t5gtggb");
-            conn.close();
-            Log.d("BDJDS", "ghghgth6667");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+                        if (conn.isClosed()) {
+                            Log.d("1111", "2222");
+                        } else {
+                            Log.d("2222", "2222");
+                        }
+                        Statement statement = conn.createStatement();
+                        Log.d("BDJDS3333333", "sdsdsdsdsds");
+
+                        statement.execute(query);
+                        Log.d("BDJDS444444444444444444", "dssd3333");
+                        statement.close();
+                        Log.d("BDJDS55555555555555555", "5t5gtggb");
+                        conn.close();
+                        Log.d("BDJDS", "ghghgth6667");
+
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    } return null;
+                }
+        }.execute();
     }
-
    /** public static void getdata(String username) {
         Connection conn = ConnectingSQL();
 

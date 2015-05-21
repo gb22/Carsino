@@ -82,7 +82,7 @@ public class DBMain extends ActionBarActivity {
 
 
     public void buttononclick(View v) {
-
+        JavaDBCon.InsertUser("superbadjs",500);
 
 
 
