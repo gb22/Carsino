@@ -5,7 +5,10 @@ package group10.db;
  */
 
 
+import android.content.Intent;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.widget.EditText;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,8 +19,10 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import group10.R;
 
-public class JavaDBCon {
+
+public class JavaDBCon extends ActionBarActivity {
 
     public static void connection() {
 
@@ -50,7 +55,6 @@ public class JavaDBCon {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
         return conn;
     }
 
@@ -83,7 +87,7 @@ public class JavaDBCon {
         }
     }
 
-    public static void getdata(String username) {
+   /** public static void getdata(String username) {
         Connection conn = ConnectingSQL();
 
         try {
@@ -100,7 +104,7 @@ public class JavaDBCon {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 
     public static void getdata() {
@@ -114,8 +118,9 @@ public class JavaDBCon {
                 String name1 = rs.getString("NAME");
                 int score = rs.getInt("Score");
 
-                System.out.println(name1 + "\n" + score
-                );
+                System.out.println(name1 + "\n" + score);
+
+
             }
         } catch (SQLException e) {
             e.printStackTrace();

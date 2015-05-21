@@ -16,47 +16,51 @@ import group10.db.JavaDBCon;
 import group10.db.JavaDBCon.data;
 import android.widget.ListAdapter;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+import java.util.ArrayList;
 
 public class highscore extends ActionBarActivity {
-    ListView list;
-
-
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
         setContentView(R.layout.activity_highscore);
+        new AsyncTask() {
 
+            @Override
+            protected Object doInBackground(Object[] params) {
+                data[] s = JavaDBCon.Getdatas();
+                System.out.println("vad är detta " + s);
 
-        populataListView();
+               final ArrayList<String> list = new ArrayList<>();
 
-
-
-
-
+                for (int i = 0; i < s.length; i++) {
+                    list.add(s[i].getName() + "\t" + "Score:" + s[i].getscore());
+                    System.out.println(s[i].getName() + s[i].getscore());
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        populateListView(list);
+                    }
+                });
+                return null;
+            }
+        }.execute();
     }
-    class MyTask extends AsyncTask<Void,String,Void>{
+
+    public void populateListView(ArrayList list){
+        final ListView listview = (ListView) findViewById(R.id.listView);
+        listview.setAdapter(new ArrayAdapter<String>(this, R.layout.name_list, list));
+       // arrayAdapter = new ArrayAdapter(this, android.R.layout.name_list, list);
+        //listview.setAdapter(arrayAdapter);
+    }
+}
+
+
+
+
+
+   /** class MyTask extends AsyncTask<Void,String,Void>{
         private ArrayAdapter<String> adapter;
 
 
@@ -101,28 +105,29 @@ public class highscore extends ActionBarActivity {
 
 
         }
-    }
+    }*/
 
 
 
 
 
-    public void populataListView() {
+    /**public void populataListView() {
         data[] Data = JavaDBCon.Getdatas();
-        final String[] teams = new String[Data.length];
+        final String[] listString = new String[Data.length];
 
         for (int i = 0; i < Data.length; i++) {
-            teams[i] = Data[i].getName() + "\t" +"Score:"+ Data[i].getscore();
-
+            listString[i] = Data[i].getName() + "\t" + "Score:" + Data[i].getscore();
 
             ListView list = (ListView) findViewById(R.id.listView);
 
-            list.setAdapter(new ArrayAdapter<String>(this, R.layout.name_list, teams));
+            list.setAdapter(new ArrayAdapter<String>(this, R.layout.name_list, listString));
 
-            new MyTask().execute();
+            //new MyTask().execute();
 
         }
-        class MyTask extends AsyncTask<Void, String, Void> {
+    }
+}*/
+       /** class MyTask extends AsyncTask<Void, String, Void> {
             private ArrayAdapter<String> adapter;
 
 
@@ -200,4 +205,4 @@ public class highscore extends ActionBarActivity {
 
 
 
-}
+}*/
