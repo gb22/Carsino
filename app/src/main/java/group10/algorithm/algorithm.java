@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  * Created by gb22 on 2015-03-22.
- *
+ * Class for handling the variables of the game itself and it's outcomes.
  */
 public class algorithm {
     //Chance of getting wild (1/value)
@@ -60,15 +60,13 @@ public class algorithm {
 
     //Determines the result of next spin.
     public void spin () {
-       /*
-       Decide outcome.
-        */
+       //Decide outcome.
         Random rand=new Random();
         result=rand.nextInt(100)+1+prevSpin;
 
-        /*
-        Set the images
-        Image 1-11 are pictures listed bellow. 12 is wild.
+        /**
+         * Set the images
+         * Image 1-11 are pictures listed bellow. 12 is wild.
          */
         //Loss
         if (result<=10) {
