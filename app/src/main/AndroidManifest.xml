@@ -27,8 +27,7 @@
         </activity>
 
         <activity
-            android:name=".db.DBMain"
-            android:label="@string/app_name" >
+            android:name=".db.DBMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,7 +38,6 @@
         <activity
             android:name=".gui.testGUI"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/app_name"
             android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,8 +47,7 @@
         </activity>
 
         <activity
-            android:name=".Voice.VoiceActivity"
-            android:label="@string/app_name" >
+            android:name=".Voice.VoiceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -59,8 +56,8 @@
         </activity>
 
         <activity
-            android:name=".carsino.highscore"
-            android:label="@string/title_activity_highscore" >
+            android:name=".carsino.highscore">
+            <!-- android:label="@string/title_activity_highscore" -->
             <intent-filter>
                 <action android:name="group10.carsino.highscore" />
 
