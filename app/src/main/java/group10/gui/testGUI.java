@@ -378,7 +378,7 @@ public class testGUI extends ActionBarActivity {
                 R.drawable.euro,
                 R.drawable.pay,
                 R.drawable.leprechaun,
-                R.drawable.wild
+                R.drawable.whitewild
         };
 
         // Cached images
