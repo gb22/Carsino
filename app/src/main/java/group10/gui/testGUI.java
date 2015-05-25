@@ -2,6 +2,7 @@ package group10.gui;
 
 import android.app.AlertDialog;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -62,7 +63,10 @@ public class testGUI extends ActionBarActivity {
     MediaPlayer Sound2;
     MediaPlayer Sound3;
 
+
+
     EditText textInput;
+    final Context context = this;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,7 +112,7 @@ public class testGUI extends ActionBarActivity {
                 else {
                     //TODO
                     //Submit score
-                    showPopup();
+                    showPopup2();
                 }
             }
         });
@@ -432,8 +436,75 @@ public class testGUI extends ActionBarActivity {
             return img;
         }
     }
+
+    public void  showPopup2(){
+        WindowManager.LayoutParams attrs = getWindow().getAttributes();
+        attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        getWindow().setAttributes(attrs);
+
+        // custom dialog
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.game_finished_dialog);
+        dialog.setTitle("Title");
+
+        // set the custom dialog components - text, image and button
+        TextView text = (TextView) dialog.findViewById(R.id.textViewScore);
+        text.setText(String.valueOf(slots.getScore()));
+
+        textInput = (EditText) (dialog.findViewById(R.id.editTextName));
+        Button submit = (Button) dialog.findViewById(R.id.buttonSubmit);
+        // if button is clicked, close the custom dialog
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JavaDBCon.InsertUser(textInput.getText().toString(), slots.getScore());
+                dialog.dismiss();
+            }
+        });
+        activityContext = this;
+       final Intent service = new Intent(activityContext, VoiceControlTest.class);
+        Button restart = (Button) dialog.findViewById(R.id.buttonRestart);
+        restart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recreate();
+                //Start the voicerec service
+                activityContext.startService(service);
+                dialog.dismiss();
+            }
+        });
+
+        Button quit = (Button) dialog.findViewById(R.id.buttonQuit);
+        quit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
+
+    //Terminates the service
+    public void onDestroy(){
+        super.onDestroy();
+        stopService(new Intent(this, VoiceControlTest.class));
+    }
+
+    private BroadcastReceiver spinReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Extract data included in the Intent
+            mix.performClick();
+            System.out.println("broadcastrecieved");
+
+        }
+    };
+
     //The dialog that pops up after the game session is finished
-    public void showPopup(){
+  /* public void showPopup(){
         WindowManager.LayoutParams attrs = getWindow().getAttributes();
         attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
         getWindow().setAttributes(attrs);
@@ -456,7 +527,7 @@ public class testGUI extends ActionBarActivity {
         //TODO Not working
 
         //Make textInput usable
-        textInput = (EditText) inflater.inflate(R.layout.game_finished_dialog, null).findViewById(R.id.editTextName);
+       /* textInput = (EditText) inflater.inflate(R.layout.game_finished_dialog, null).findViewById(R.id.editTextName);
         textInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -474,7 +545,7 @@ public class testGUI extends ActionBarActivity {
     }
 
     //Restart button
-    public void restart(View v) {
+  /*  public void restart(View v) {
         recreate();
     }
     //Quit button
@@ -490,21 +561,7 @@ public class testGUI extends ActionBarActivity {
 
 
 
-    //Terminates the service
-    public void onDestroy(){
-        super.onDestroy();
-        stopService(new Intent(this, VoiceControlTest.class));
-    }
 
-    private BroadcastReceiver spinReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            // Extract data included in the Intent
-            mix.performClick();
-            System.out.println("broadcastrecieved");
-
-        }
-    };
 /*
     @Override
     protected void onCreate(Bundle savedInstanceState) {

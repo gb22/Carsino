@@ -52,8 +52,7 @@
             android:text="Sumbit Score"
             android:id="@+id/buttonSubmit"
             android:layout_column="3"
-            android:enabled="true"
-            android:onClick="submit"/>
+            android:enabled="true" />  <!--android:onClick="submit" -->
     </TableRow>
 
     <TableRow
@@ -66,8 +65,7 @@
             android:text="Restart"
             android:id="@+id/buttonRestart"
             android:layout_column="1"
-            android:enabled="true"
-            android:onClick="restart"/>
+            android:enabled="true" /> <!--android:onClick="restart" -->
 
         <Button
             android:layout_width="wrap_content"
@@ -75,7 +73,6 @@
             android:text="Quit"
             android:id="@+id/buttonQuit"
             android:layout_column="5"
-            android:enabled="true"
-            android:onClick="quit"/>
+            android:enabled="true" /> <!--android:onClick="quit" -->
     </TableRow>
 </TableLayout>
