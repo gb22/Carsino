@@ -1,27 +1,18 @@
 package group10.db;
 
 /**
- * Created by tony on 15-5-5.Change
+ * Created by tony on 15-5-5.
  */
 
-
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.widget.EditText;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLOutput;
 import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-
-import group10.R;
-
 
 public class JavaDBCon extends ActionBarActivity {
 
@@ -30,13 +21,12 @@ public class JavaDBCon extends ActionBarActivity {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Connected");
-            Log.d("Worked", "sdsdsd666uu tony???????????????");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    //Used for connecting to the db server, returns that connection so that it might be used elsweyr
+    //Used for connecting to the db server
     public static Connection ConnectingSQL() {
         connection();
         String url = "jdbc:mysql://sql5.freemysqlhosting.net/";
@@ -45,13 +35,10 @@ public class JavaDBCon extends ActionBarActivity {
         String password = "zH6!eW7*";
         Connection conn = null;
         try {
-            System.out.println("Inne i try");
 
-             conn = DriverManager.getConnection(url+dbName, userName, password);
+            conn = DriverManager.getConnection(url+dbName, userName, password);
 
             System.out.println("efter connn");
-
-
         } catch (java.sql.SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -59,60 +46,48 @@ public class JavaDBCon extends ActionBarActivity {
         return conn;
     }
 
-
+    // insert name and score into database with asynctask
     public static void InsertUser(final String name, final int score) {
+        new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] params) {
+                Connection conn = ConnectingSQL();
+                try {
+                    //PreparedStatement instatement = (PreparedStatement) conn.prepareStatement(TranslatorV1.translateInsertTeam(t.getName(),t.getPnp(),t.isCl()));
+                    String query = "INSERT INTO HighScore (Name,Score) VALUES ('" + name + "'," + score + ")";
+                    if (conn.isClosed()) {
+                    } else {
+                    }
+                    Statement statement = conn.createStatement();
+                    statement.execute(query);
+                    statement.close();
+                    conn.close();
 
-
-            new AsyncTask() {
-                @Override
-                protected Object doInBackground(Object[] params) {
-                    Connection conn = ConnectingSQL();
-                    try {
-                        //PreparedStatement instatement = (PreparedStatement) conn.prepareStatement(TranslatorV1.translateInsertTeam(t.getName(),t.getPnp(),t.isCl()));
-                        String query = "INSERT INTO HighScore (Name,Score) VALUES ('" + name + "'," + score + ")";
-
-                        Log.d("BDJDS222222222222", query);
-
-                        if (conn.isClosed()) {
-                            Log.d("1111", "2222");
-                        } else {
-                            Log.d("2222", "2222");
-                        }
-                        Statement statement = conn.createStatement();
-                        Log.d("BDJDS3333333", "sdsdsdsdsds");
-
-                        statement.execute(query);
-                        Log.d("BDJDS444444444444444444", "dssd3333");
-                        statement.close();
-                        Log.d("BDJDS55555555555555555", "5t5gtggb");
-                        conn.close();
-                        Log.d("BDJDS", "ghghgth6667");
-
-                    } catch (SQLException e1) {
-                        e1.printStackTrace();
-                    } return null;
-                }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                } return null;
+            }
         }.execute();
     }
-   /** public static void getdata(String username) {
-        Connection conn = ConnectingSQL();
+    /** public static void getdata(String username) {
+     Connection conn = ConnectingSQL();
 
-        try {
+     try {
 
-            Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM HighScore");
-            while (rs.next()) {
-                String name1 = rs.getString("NAME");
-                int score = rs.getInt("Score");
+     Statement statement = conn.createStatement();
+     ResultSet rs = statement.executeQuery("SELECT * FROM HighScore");
+     while (rs.next()) {
+     String name1 = rs.getString("NAME");
+     int score = rs.getInt("Score");
 
-                System.out.println(name1 + "\n" + score
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }*/
-
+     System.out.println(name1 + "\n" + score
+     );
+     }
+     } catch (SQLException e) {
+     e.printStackTrace();
+     }
+     }*/
+// test for geting data from database.
 
     public static void getdata() {
         Connection conn = ConnectingSQL();
@@ -134,20 +109,19 @@ public class JavaDBCon extends ActionBarActivity {
         }
     }
 
+    //Get's a list with name and score from the database
     public static data[] Getdatas() {
         Connection conn = ConnectingSQL();
         data t = null;
         ResultSet rs = null;
         data[] ta = null;
         int rsrows = 0;
-        String s = "SELECT * FROM HighScore";
+
+        String s = "SELECT Name,Score FROM HighScore Order By Score Desc LIMIT 10";
         System.out.println(conn);
         try {
-            System.out.println("ITY");
             PreparedStatement outstatement = conn.prepareStatement(s);
-            System.out.println("ITY2");
             rs = outstatement.executeQuery();
-            System.out.println("ITY3");
             rs.last();
             rsrows = rs.getRow();
             rs.beforeFirst();
@@ -168,17 +142,14 @@ public class JavaDBCon extends ActionBarActivity {
         }
         return ta;
     }
-
+    //Constructor for getinformation from db
     public static class data  {
         public String name;
         public String score;
         data(String n, String p) {
             this.setName(n);
             this.setscore(p);
-
         }
-
-
 
         public String getName() {
             return name;
