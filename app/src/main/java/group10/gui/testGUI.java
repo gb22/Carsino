@@ -16,10 +16,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.swedspot.automotiveapi.AutomotiveSignal;
 import android.swedspot.automotiveapi.AutomotiveSignalId;
 import android.swedspot.scs.data.SCSFloat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.LayoutInflater;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Button;
@@ -57,6 +60,9 @@ public class testGUI extends ActionBarActivity {
     private ViewSwitcher switcher;
     MediaPlayer Sound;
     MediaPlayer Sound2;
+    MediaPlayer Sound3;
+
+    EditText textInput;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +81,7 @@ public class testGUI extends ActionBarActivity {
 
         Sound = MediaPlayer.create(this, R.raw.jockemedkniven);
         Sound2 = MediaPlayer.create(this, R.raw.lose);
+        Sound3 = MediaPlayer.create(this, R.raw.tada);
 
         setContentView(R.layout.slot_machine_layout);
         initWheel(R.id.slot_1);
@@ -208,17 +215,25 @@ public class testGUI extends ActionBarActivity {
     private OnWheelChangedListener changedListener = new OnWheelChangedListener() {
         public void onChanged(WheelView wheel, int oldValue, int newValue) {
             if (!wheelScrolled) {
-                if (slots.getResult()<=10) {
-                    Sound2.start();
-                }
-                if (11<=slots.getResult() && slots.getResult()<=58){
-                    Sound2.start();
-                }
-                if(59<=slots.getResult() && slots.getResult()<=88){
-                    Sound2.start();
-                }
-                if(89<=slots.getResult()){
-                    Sound2.start();
+                if(!Sound.isPlaying()) {
+                    if (slots.getResult() <= 10) {
+                        Sound2.start();
+                    }
+                    if (11 <= slots.getResult() && slots.getResult() <= 58) {
+                        if (!Sound.isPlaying()) {
+                            Sound3.start();
+                        }
+                    }
+                    if (59 <= slots.getResult() && slots.getResult() <= 88) {
+                        if (!Sound.isPlaying()) {
+                            Sound3.start();
+                        }
+                    }
+                    if (89 <= slots.getResult()) {
+                        if (!Sound.isPlaying()) {
+                            Sound3.start();
+                        }
+                    }
                 }
                 updateStatus();
             }
@@ -231,7 +246,6 @@ public class testGUI extends ActionBarActivity {
     private void updateStatus() {
         TextView textMain = (TextView) findViewById(R.id.pwd_status);
         textMain.setText(String.valueOf(slots.getScore()));
-
     }
 
     /**
@@ -319,7 +333,7 @@ public class testGUI extends ActionBarActivity {
         if (slots<0){
             slots+=12;
         }
-        wheel.scroll(slots - (12 * 4), 5000 * time);
+        wheel.scroll(slots - (12 * 4), 3150 * time);
 
      /*   if(time==3){
 
@@ -343,8 +357,8 @@ public class testGUI extends ActionBarActivity {
      */
     private class SlotMachineAdapter extends AbstractWheelAdapter {
         // Image size
-        final int IMAGE_WIDTH = 50;
-        final int IMAGE_HEIGHT =50;
+        final int IMAGE_WIDTH = 100;
+        final int IMAGE_HEIGHT = 100;
 
         // Slot machine symbols Symbol is in order of
         // Square of transparent round picture is best!
@@ -359,8 +373,8 @@ public class testGUI extends ActionBarActivity {
                 R.drawable.deer,
                 R.drawable.euro,
                 R.drawable.pay,
-               android.R.drawable.arrow_down_float, /*TODO BARBAR BAR*/
-                R.drawable.leprechaun
+                R.drawable.leprechaun,
+                R.drawable.wild
         };
 
         // Cached images
@@ -433,14 +447,30 @@ public class testGUI extends ActionBarActivity {
         // Pass null as the parent view because its going in the dialog layout
         alertDialog.setView(inflater.inflate(R.layout.game_finished_dialog, null));
         alertDialog.setTitle("You have run out of spins!");
+        alertDialog.show();
 
         //Get actual score
         TextView textDialog = (TextView) findViewById(R.id.textViewScore);
-        System.out.println("Score: " + slots.getScore());
-        String name = new Integer(slots.getScore()).toString();
-        textDialog.setText(name);
+        //String score = new Integer(slots.getScore()).toString();
+        //textDialog.setText(String.valueOf(slots.getScore()));
         //TODO Not working
-        alertDialog.show();
+
+        //Make textInput usable
+        textInput = (EditText) inflater.inflate(R.layout.game_finished_dialog, null).findViewById(R.id.editTextName);
+        textInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                System.out.println("IMPORTANT1: "+s);
+                textInput.setText(s);
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                System.out.println("IMPORTANT: "+s);
+                textInput.setText(s);
+            }
+        });
     }
 
     //Restart button
@@ -454,7 +484,6 @@ public class testGUI extends ActionBarActivity {
     //Submit score button
     public void submit(View v) {
         //TODO hopefully working
-        TextView textInput = (TextView) findViewById(R.id.editTextName);
         String name = textInput.getText().toString();
         JavaDBCon.InsertUser(name, slots.getScore());
     }

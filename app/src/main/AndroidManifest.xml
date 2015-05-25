@@ -58,17 +58,6 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".Voice.VoiceControl"
-            android:enabled="true"
-            android:label="Voice Control" >
-        </service>
-        <service
-            android:name=".Voice.VoiceControlTest"
-            android:enabled="true"
-            android:label="Voice Controller" >
-        </service>
-
         <activity
             android:name=".carsino.highscore"
             android:label="@string/title_activity_highscore" >
@@ -78,5 +67,18 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+
+        <service
+            android:name=".Voice.VoiceControl"
+            android:enabled="true"
+            android:label="Voice Control" >
+        </service>
+
+        <service
+            android:name=".Voice.VoiceControlTest"
+            android:enabled="true"
+            android:label="Voice Controller" >
+        </service>
     </application>
 </manifest>
