@@ -4,24 +4,15 @@ package group10.db;
  * Created by tony on 15-5-5.
  */
 
-
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.widget.EditText;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLOutput;
 import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-
-import group10.R;
-
 
 public class JavaDBCon extends ActionBarActivity {
 
@@ -30,7 +21,6 @@ public class JavaDBCon extends ActionBarActivity {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Connected");
-
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -46,12 +36,9 @@ public class JavaDBCon extends ActionBarActivity {
         Connection conn = null;
         try {
 
+            conn = DriverManager.getConnection(url+dbName, userName, password);
 
-             conn = DriverManager.getConnection(url+dbName, userName, password);
-
-
-
-
+            System.out.println("efter connn");
         } catch (java.sql.SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -61,57 +48,45 @@ public class JavaDBCon extends ActionBarActivity {
 
     // insert name and score into database with asynctask
     public static void InsertUser(final String name, final int score) {
+        new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] params) {
+                Connection conn = ConnectingSQL();
+                try {
+                    //PreparedStatement instatement = (PreparedStatement) conn.prepareStatement(TranslatorV1.translateInsertTeam(t.getName(),t.getPnp(),t.isCl()));
+                    String query = "INSERT INTO HighScore (Name,Score) VALUES ('" + name + "'," + score + ")";
+                    if (conn.isClosed()) {
+                    } else {
+                    }
+                    Statement statement = conn.createStatement();
+                    statement.execute(query);
+                    statement.close();
+                    conn.close();
 
-
-            new AsyncTask() {
-                @Override
-                protected Object doInBackground(Object[] params) {
-                    Connection conn = ConnectingSQL();
-                    try {
-
-                        String query = "INSERT INTO HighScore (Name,Score) VALUES ('" + name + "'," + score + ")";
-
-
-
-                        if (conn.isClosed()) {
-
-                        } else {
-
-                        }
-                        Statement statement = conn.createStatement();
-
-
-                        statement.execute(query);
-
-                        statement.close();
-
-                        conn.close();
-
-
-                    } catch (SQLException e1) {
-                        e1.printStackTrace();
-                    } return null;
-                }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                } return null;
+            }
         }.execute();
     }
-   /** public static void getdata(String username) {
-        Connection conn = ConnectingSQL();
+    /** public static void getdata(String username) {
+     Connection conn = ConnectingSQL();
 
-        try {
+     try {
 
-            Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM HighScore");
-            while (rs.next()) {
-                String name1 = rs.getString("NAME");
-                int score = rs.getInt("Score");
+     Statement statement = conn.createStatement();
+     ResultSet rs = statement.executeQuery("SELECT * FROM HighScore");
+     while (rs.next()) {
+     String name1 = rs.getString("NAME");
+     int score = rs.getInt("Score");
 
-                System.out.println(name1 + "\n" + score
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }*/
+     System.out.println(name1 + "\n" + score
+     );
+     }
+     } catch (SQLException e) {
+     e.printStackTrace();
+     }
+     }*/
 // test for geting data from database.
 
     public static void getdata() {
@@ -134,9 +109,6 @@ public class JavaDBCon extends ActionBarActivity {
         }
     }
 
-
-
-
     //Get's a list with name and score from the database
     public static data[] Getdatas() {
         Connection conn = ConnectingSQL();
@@ -148,11 +120,8 @@ public class JavaDBCon extends ActionBarActivity {
         String s = "SELECT Name,Score FROM HighScore Order By Score Desc LIMIT 10";
         System.out.println(conn);
         try {
-
             PreparedStatement outstatement = conn.prepareStatement(s);
-
             rs = outstatement.executeQuery();
-
             rs.last();
             rsrows = rs.getRow();
             rs.beforeFirst();
@@ -180,10 +149,7 @@ public class JavaDBCon extends ActionBarActivity {
         data(String n, String p) {
             this.setName(n);
             this.setscore(p);
-
         }
-
-
 
         public String getName() {
             return name;
