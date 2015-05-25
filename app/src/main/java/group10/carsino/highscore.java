@@ -19,7 +19,7 @@ import android.widget.ListAdapter;
 import java.util.ArrayList;
 
 public class highscore extends ActionBarActivity {
-
+    //Get's a list with name and score from the database in to the ListView with asyntask
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,13 +41,14 @@ public class highscore extends ActionBarActivity {
                     @Override
                     public void run() {
                         populateListView(list);
+
                     }
                 });
                 return null;
             }
         }.execute();
     }
-
+    // set a listview
     public void populateListView(ArrayList list){
         final ListView listview = (ListView) findViewById(R.id.listView);
         listview.setAdapter(new ArrayAdapter<String>(this, R.layout.name_list, list));

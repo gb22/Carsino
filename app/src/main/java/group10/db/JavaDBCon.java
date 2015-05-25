@@ -30,13 +30,13 @@ public class JavaDBCon extends ActionBarActivity {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Connected");
-            Log.d("Worked", "sdsdsd666uu tony???????????????");
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    //Used for connecting to the db server, returns that connection so that it might be used elsweyr
+    //Used for connecting to the db server
     public static Connection ConnectingSQL() {
         connection();
         String url = "jdbc:mysql://sql5.freemysqlhosting.net/";
@@ -45,11 +45,11 @@ public class JavaDBCon extends ActionBarActivity {
         String password = "zH6!eW7*";
         Connection conn = null;
         try {
-            System.out.println("Inne i try");
+
 
              conn = DriverManager.getConnection(url+dbName, userName, password);
 
-            System.out.println("efter connn");
+
 
 
         } catch (java.sql.SQLException e) {
@@ -59,7 +59,7 @@ public class JavaDBCon extends ActionBarActivity {
         return conn;
     }
 
-
+    // insert name and score into database with asynctask
     public static void InsertUser(final String name, final int score) {
 
 
@@ -68,25 +68,25 @@ public class JavaDBCon extends ActionBarActivity {
                 protected Object doInBackground(Object[] params) {
                     Connection conn = ConnectingSQL();
                     try {
-                        //PreparedStatement instatement = (PreparedStatement) conn.prepareStatement(TranslatorV1.translateInsertTeam(t.getName(),t.getPnp(),t.isCl()));
+
                         String query = "INSERT INTO HighScore (Name,Score) VALUES ('" + name + "'," + score + ")";
 
-                        Log.d("BDJDS222222222222", query);
+
 
                         if (conn.isClosed()) {
-                            Log.d("1111", "2222");
+
                         } else {
-                            Log.d("2222", "2222");
+
                         }
                         Statement statement = conn.createStatement();
-                        Log.d("BDJDS3333333", "sdsdsdsdsds");
+
 
                         statement.execute(query);
-                        Log.d("BDJDS444444444444444444", "dssd3333");
+
                         statement.close();
-                        Log.d("BDJDS55555555555555555", "5t5gtggb");
+
                         conn.close();
-                        Log.d("BDJDS", "ghghgth6667");
+
 
                     } catch (SQLException e1) {
                         e1.printStackTrace();
@@ -112,7 +112,7 @@ public class JavaDBCon extends ActionBarActivity {
             e.printStackTrace();
         }
     }*/
-
+// test for geting data from database.
 
     public static void getdata() {
         Connection conn = ConnectingSQL();
@@ -134,6 +134,10 @@ public class JavaDBCon extends ActionBarActivity {
         }
     }
 
+
+
+
+    //Get's a list with name and score from the database
     public static data[] Getdatas() {
         Connection conn = ConnectingSQL();
         data t = null;
@@ -144,11 +148,11 @@ public class JavaDBCon extends ActionBarActivity {
         String s = "SELECT Name,Score FROM HighScore Order By Score Desc LIMIT 10";
         System.out.println(conn);
         try {
-            System.out.println("ITY");
+
             PreparedStatement outstatement = conn.prepareStatement(s);
-            System.out.println("ITY2");
+
             rs = outstatement.executeQuery();
-            System.out.println("ITY3");
+
             rs.last();
             rsrows = rs.getRow();
             rs.beforeFirst();
@@ -169,7 +173,7 @@ public class JavaDBCon extends ActionBarActivity {
         }
         return ta;
     }
-
+    //Constructor for getinformation from db
     public static class data  {
         public String name;
         public String score;

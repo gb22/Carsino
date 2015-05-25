@@ -41,7 +41,7 @@ public class DBMain extends ActionBarActivity {
 
         onClickbuttonListener();
     }
-
+// set a highsore activity screen
    public void onClickbuttonListener() {
         Button button_sbm = (Button) findViewById(R.id.button);
         button_sbm.setOnClickListener(
@@ -80,7 +80,7 @@ public class DBMain extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+//test button for connecting database
     public void buttononclick(View v) {
         JavaDBCon.InsertUser("superbadjs",500);
 
