@@ -461,15 +461,15 @@ public class testGUI extends ActionBarActivity {
                 dialog.dismiss();
             }
         });
-        activityContext = this;
-       final Intent service = new Intent(activityContext, VoiceControlTest.class);
+        //activityContext = this;
+       final Intent service = new Intent(this, VoiceControlTest.class);
         Button restart = (Button) dialog.findViewById(R.id.buttonRestart);
         restart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 recreate();
                 //Start the voicerec service
-                activityContext.startService(service);
+                startService(service);
                 dialog.dismiss();
             }
         });
