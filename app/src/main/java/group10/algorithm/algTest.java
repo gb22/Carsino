@@ -2,7 +2,7 @@ package group10.algorithm;
 
 /**
  * Created by gb22 on 2015-03-22.
- *
+ * Used for testing of the algorithm
  */
 public class algTest {
     public static void main(String[] args) {
