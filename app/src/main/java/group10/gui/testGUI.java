@@ -62,8 +62,9 @@ public class testGUI extends ActionBarActivity {
     MediaPlayer Sound;
     MediaPlayer Sound2;
     MediaPlayer Sound3;
-
-
+    MediaPlayer Sound4;
+    MediaPlayer Sound5;
+    MediaPlayer Sound6;
 
     EditText textInput;
     final Context context = this;
@@ -86,7 +87,9 @@ public class testGUI extends ActionBarActivity {
         Sound = MediaPlayer.create(this, R.raw.jockemedkniven);
         Sound2 = MediaPlayer.create(this, R.raw.lose);
         Sound3 = MediaPlayer.create(this, R.raw.tada);
-
+        Sound4 = MediaPlayer.create(this, R.raw.dropmetalthing);
+        Sound5 = MediaPlayer.create(this,R.raw.fanfar);
+        Sound6 = MediaPlayer.create(this,R.raw.loliver);
         setContentView(R.layout.slot_machine_layout);
         initWheel(R.id.slot_1);
         initWheel(R.id.slot_2);
@@ -113,6 +116,7 @@ public class testGUI extends ActionBarActivity {
                     //TODO
                     //Submit score
                     showPopup2();
+                    Sound6.start();
                 }
             }
         });
@@ -225,7 +229,7 @@ public class testGUI extends ActionBarActivity {
                     }
                     if (11 <= slots.getResult() && slots.getResult() <= 58) {
                         if (!Sound.isPlaying()) {
-                            Sound3.start();
+                            Sound4.start();
                         }
                     }
                     if (59 <= slots.getResult() && slots.getResult() <= 88) {
@@ -235,7 +239,7 @@ public class testGUI extends ActionBarActivity {
                     }
                     if (89 <= slots.getResult()) {
                         if (!Sound.isPlaying()) {
-                            Sound3.start();
+                            Sound5.start();
                         }
                     }
                 }
