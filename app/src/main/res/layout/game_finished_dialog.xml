@@ -29,7 +29,7 @@
             android:text="Name"
             android:editable="true"
             android:enabled="true"
-            android:width="130dp" />
+            android:width="150dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
             android:id="@+id/textViewScore"
             android:layout_column="5"
             android:enabled="true"
-            android:width="130dp"
+            android:width="150dp"
             android:gravity="center_horizontal" />
     </TableRow>
 
@@ -62,11 +62,11 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sumbit Score"
+            android:text="Submit Score"
             android:id="@+id/buttonSubmit"
             android:layout_column="1"
             android:enabled="true"
-            android:width="130dp" />
+            android:width="150dp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -75,6 +75,6 @@
             android:id="@+id/buttonQuit"
             android:layout_column="5"
             android:enabled="true"
-            android:width="130dp" /> <!--android:onClick="quit" -->
+            android:width="150dp" /> <!--android:onClick="quit" -->
     </TableRow>
 </TableLayout>
