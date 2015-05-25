@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import group10.gui.testGUI;
 
 /**
- * Created by John on 5/3/2015.
+ * Created by John(Olivers dator) on 5/3/2015.
  */
 public class VoiceControlTest extends Service {
     public AudioManager mAudioManager;
