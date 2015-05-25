@@ -28,7 +28,8 @@
             android:layout_column="1"
             android:text="Name"
             android:editable="true"
-            android:enabled="true" />
+            android:enabled="true"
+            android:width="130dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,7 +37,9 @@
             android:text="Score"
             android:id="@+id/textViewScore"
             android:layout_column="5"
-            android:enabled="true" />
+            android:enabled="true"
+            android:width="130dp"
+            android:gravity="center_horizontal" />
     </TableRow>
 
     <TableRow
@@ -47,26 +50,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sumbit Score"
-            android:id="@+id/buttonSubmit"
-            android:layout_column="3"
-            android:enabled="true" />  <!--android:onClick="submit" -->
+        <!--android:onClick="submit" -->
     </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!--android:onClick="restart" -->
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Restart"
-            android:id="@+id/buttonRestart"
+            android:text="Sumbit Score"
+            android:id="@+id/buttonSubmit"
             android:layout_column="1"
-            android:enabled="true" /> <!--android:onClick="restart" -->
+            android:enabled="true"
+            android:width="130dp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -74,6 +74,7 @@
             android:text="Quit"
             android:id="@+id/buttonQuit"
             android:layout_column="5"
-            android:enabled="true" /> <!--android:onClick="quit" -->
+            android:enabled="true"
+            android:width="130dp" /> <!--android:onClick="quit" -->
     </TableRow>
 </TableLayout>

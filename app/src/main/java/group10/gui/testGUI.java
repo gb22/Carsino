@@ -445,7 +445,7 @@ public class testGUI extends ActionBarActivity {
         // custom dialog
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.game_finished_dialog);
-        dialog.setTitle("Title");
+        dialog.setTitle("You have run out of spins!");
 
         // set the custom dialog components - text, image and button
         TextView text = (TextView) dialog.findViewById(R.id.textViewScore);
@@ -458,18 +458,6 @@ public class testGUI extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 JavaDBCon.InsertUser(textInput.getText().toString(), slots.getScore());
-                dialog.dismiss();
-            }
-        });
-        //activityContext = this;
-       final Intent service = new Intent(this, VoiceControlTest.class);
-        Button restart = (Button) dialog.findViewById(R.id.buttonRestart);
-        restart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recreate();
-                //Start the voicerec service
-                startService(service);
                 dialog.dismiss();
             }
         });
