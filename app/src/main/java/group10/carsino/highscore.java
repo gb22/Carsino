@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import group10.R;
 
+import android.view.View;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 import group10.db.JavaDBCon;
@@ -18,6 +19,10 @@ public class highscore extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_highscore);
+        View decorView = getWindow().getDecorView();
+        //Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
         new AsyncTask() {
 
             @Override

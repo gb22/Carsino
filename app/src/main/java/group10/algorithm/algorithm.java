@@ -10,7 +10,7 @@ public class algorithm {
     //Chance of getting wild (1/value)
     static int wildChance=10;
     //Amount of spins the user starts with
-    static int startSpins=1;
+    static int startSpins=10;
 
     //Ints for handling the different slot images (1-12)
     int img1;

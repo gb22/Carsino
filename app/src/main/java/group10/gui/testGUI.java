@@ -83,12 +83,14 @@ public class testGUI extends ActionBarActivity {
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
 
+        //Initialize the different mediaplayers with different sounds
         Sound = MediaPlayer.create(this, R.raw.jockemedkniven);
         Sound2 = MediaPlayer.create(this, R.raw.lose);
         Sound3 = MediaPlayer.create(this, R.raw.tada);
         Sound4 = MediaPlayer.create(this, R.raw.dropmetalthing);
         Sound5 = MediaPlayer.create(this,R.raw.fanfar);
         Sound6 = MediaPlayer.create(this,R.raw.loliver);
+
         setContentView(R.layout.slot_machine_layout);
         initWheel(R.id.slot_1);
         initWheel(R.id.slot_2);
@@ -112,9 +114,9 @@ public class testGUI extends ActionBarActivity {
                 }
                 //User has no more spins
                 else {
-                    //TODO
                     //Submit score
-                    showPopup2();
+                    showPopup();
+                    //plays sound
                     Sound6.start();
                 }
             }
@@ -221,22 +223,27 @@ public class testGUI extends ActionBarActivity {
     private OnWheelChangedListener changedListener = new OnWheelChangedListener() {
         public void onChanged(WheelView wheel, int oldValue, int newValue) {
             if (!wheelScrolled) {
+                //Plays different sound on different outcomes
                 if(!Sound.isPlaying()) {
                     if (slots.getResult() <= 10) {
+                        //A loss
                         Sound2.start();
                     }
                     if (11 <= slots.getResult() && slots.getResult() <= 58) {
                         if (!Sound.isPlaying()) {
+                            //Small win
                             Sound4.start();
                         }
                     }
                     if (59 <= slots.getResult() && slots.getResult() <= 88) {
                         if (!Sound.isPlaying()) {
+                            //Medium win
                             Sound3.start();
                         }
                     }
                     if (89 <= slots.getResult()) {
                         if (!Sound.isPlaying()) {
+                            //Large win
                             Sound5.start();
                         }
                     }
@@ -302,31 +309,6 @@ public class testGUI extends ActionBarActivity {
      * @param id the wheel id
      *           wheel.scroll(number + (int)(Match.random()* number), number<-- how long it spins)
      */
-    /*
-         x=10  y=11  z=12
-       0. Nothing
-       1. 111 -> 222 -> 333 ...
-       2. 111 -> 333 ...
-       3. 111 -> 444 ...
-       4. 111 -> 555 ...
-       5. 111 -> 666 ...
-       6. 111 -> 777 ...
-       7. 111 -> 888 ...
-       8. 111 -> 999 ...
-       9. 111 -> xxx ...
-      10. 111 -> yyy ...
-      11. 111 -> zzz ...
-      12. 111 -> 111 with a "360" (0)
-      13. 111 -> 222 with a "360" (1)
-      24. 111 ->
-
-        slots-=1 (Off by one), ID is fucked up...
-     */
-    /*112,2000 Gives strange same result each spin...
-      16/-16 will give the result xyy
-      17 xyz-> kxy-> lkx
-      18 yyx
-     */
 
     private void mixWheel(int id, int slots, int time, algorithm slot) {
 
@@ -335,27 +317,11 @@ public class testGUI extends ActionBarActivity {
         slots=slots-getWheel(id).getCurrentItem();
         System.out.println("Current item: "+getWheel(id).getCurrentItem());
         System.out.println("ID: " + id);
-        // slots=Math.abs(slots);
         if (slots<0){
             slots+=12;
         }
         wheel.scroll(slots - (12 * 4), 3150 * time);
 
-     /*   if(time==3){
-
-            if (slot.getResult()<=10) {
-                Sound2.start();
-            }
-            if (11<=slot.getResult() && slot.getResult()<=58){
-                Sound2.start();
-            }
-            if(59<=slot.getResult() && slot.getResult()<=88){
-                Sound2.start();
-            }
-            if(89<=slot.getResult()){
-                Sound2.start();
-            }
-        }*/
     }
 
     /**
@@ -440,7 +406,7 @@ public class testGUI extends ActionBarActivity {
     }
 
     //The dialog that pops up after the game session is finished
-    public void  showPopup2(){
+    public void  showPopup(){
         WindowManager.LayoutParams attrs = getWindow().getAttributes();
         attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
         getWindow().setAttributes(attrs);
