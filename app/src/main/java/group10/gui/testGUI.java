@@ -1,7 +1,9 @@
 package group10.gui;
 
-import android.app.AlertDialog;
-import android.app.Activity;
+/**
+ * This is the main class for the game itself.
+ */
+
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -17,12 +19,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.swedspot.automotiveapi.AutomotiveSignal;
 import android.swedspot.automotiveapi.AutomotiveSignalId;
 import android.swedspot.scs.data.SCSFloat;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -176,7 +175,6 @@ public class testGUI extends ActionBarActivity {
                             }
                             @Override
                             public void timeout(int i) {}
-
                             @Override
                             public void notAllowed(int i) {}
                         },
@@ -184,10 +182,10 @@ public class testGUI extends ActionBarActivity {
 
                             @Override
                             public void levelChanged(final DriverDistractionLevel driverDistractionLevel) {
-                                new Runnable() { // Post the result back to the View/UI thread
+                                new Runnable() {
                                     public void run() {
                                         //TODO
-                                        //What happens when to distracted.
+                                        //Would have had an action if we had time to implement.
                                     }
                                 };
                             }
@@ -441,6 +439,7 @@ public class testGUI extends ActionBarActivity {
         }
     }
 
+    //The dialog that pops up after the game session is finished
     public void  showPopup2(){
         WindowManager.LayoutParams attrs = getWindow().getAttributes();
         attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
@@ -458,6 +457,7 @@ public class testGUI extends ActionBarActivity {
         textInput = (EditText) (dialog.findViewById(R.id.editTextName));
         Button submit = (Button) dialog.findViewById(R.id.buttonSubmit);
         // if button is clicked, close the custom dialog
+        // Listener for the "submit" button
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -466,6 +466,7 @@ public class testGUI extends ActionBarActivity {
             }
         });
 
+        // Listener for the "quit" button.
         Button quit = (Button) dialog.findViewById(R.id.buttonQuit);
         quit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -494,95 +495,4 @@ public class testGUI extends ActionBarActivity {
 
         }
     };
-
-    //The dialog that pops up after the game session is finished
-  /* public void showPopup(){
-        WindowManager.LayoutParams attrs = getWindow().getAttributes();
-        attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
-        getWindow().setAttributes(attrs);
-
-        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-
-        // Get the layout inflater
-        LayoutInflater inflater = this.getLayoutInflater();
-
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-        alertDialog.setView(inflater.inflate(R.layout.game_finished_dialog, null));
-        alertDialog.setTitle("You have run out of spins!");
-        alertDialog.show();
-
-        //Get actual score
-        TextView textDialog = (TextView) findViewById(R.id.textViewScore);
-        //String score = new Integer(slots.getScore()).toString();
-        //textDialog.setText(String.valueOf(slots.getScore()));
-        //TODO Not working
-
-        //Make textInput usable
-       /* textInput = (EditText) inflater.inflate(R.layout.game_finished_dialog, null).findViewById(R.id.editTextName);
-        textInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                System.out.println("IMPORTANT1: "+s);
-                textInput.setText(s);
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-                System.out.println("IMPORTANT: "+s);
-                textInput.setText(s);
-            }
-        });
-    }
-
-    //Restart button
-  /*  public void restart(View v) {
-        recreate();
-    }
-    //Quit button
-    public void quit(View v) {
-        finish();
-    }
-    //Submit score button
-    public void submit(View v) {
-        //TODO hopefully working
-        String name = textInput.getText().toString();
-        JavaDBCon.InsertUser(name, slots.getScore());
-    }
-
-
-
-
-/*
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_main);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-    */
 }
